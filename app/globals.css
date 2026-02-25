@@ -2,6 +2,24 @@
 
 @custom-variant dark (&:is(.dark *));
 
-body{
+body {
   box-sizing: border-box;
+}
+
+:root {
+  --background: #f6f7f8;
+  --primary: #1c69e3;
+  --default: #000000;
+}
+
+.dark {
+  --background: #05070b;
+  --primary: #277dff;
+  --default: #ffff;
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-primary: var(--primary);
+  --color-for-default: var(--default);
 }
