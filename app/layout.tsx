@@ -1,15 +1,16 @@
 import ClientLayout from "./ClientLayout";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const title: string = "DevFlow | Home";
 const description: string =
   "DevFlow - Modern Developer Collaboration Platform | Structured issue tracking, clean task management, and collaborative workspaces for developer teams.";
-const inter = Inter({
+
+const geist_mono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-inter",
-});
+  variable: "--font-geist-mono"
+})
 
 export const metadata: Metadata = {
   title: title,
@@ -27,10 +28,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`bg-white dark:bg-black ${inter.variable} antialiased`}>
-        
-          <ClientLayout>{children}</ClientLayout>
-        
+      <body
+        className={`transition-colors duration-500 bg-background text-for-default ${geist_mono.variable} antialiased`}
+      >
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
