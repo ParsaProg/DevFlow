@@ -1,0 +1,80 @@
+"use client";
+
+import { headerLinkItems } from "@/src/data/header-items";
+import { Moon, Sun } from "lucide-react";
+import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+
+export default function Header() {
+  const [mounted, setMounted] = useState<boolean>(false);
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  return (
+    <div className="w-full fixed top-0 dark:shadow-none shadow-[0px_0px_15px_1px] shadow-neutral-300 dark:border-b dark:border-b-[#1D2229]">
+      <div className="mx-auto w-[80%] flex items-center justify-between py-5">
+        <section className="flex items-center gap-x-2 font-bold">
+          <div className="text-white rounded-xl bg-primary w-8 h-8 items-center flex justify-center">
+            D
+          </div>
+          <h1 className="text-xl font-semibold">DevFlow</h1>
+        </section>
+        <section className="flex items-center text-neutral-700 dark:text-neutral-400 gap-x-8 ">
+          {headerLinkItems.map((item, _i) => (
+            <Link
+              className="dark:hover:text-white hover:text-black transition-all duration-200"
+              href={`/${item}`}
+              key={_i}
+            >
+              {item}
+            </Link>
+          ))}
+        </section>
+        <section className="flex items-center gap-x-5">
+          <motion.div
+            whileTap={{ scale: 0.95 }}
+            className="p-2 rounded-full border border-neutral-300 dark:border-[#1D2229] dark:bg-[#0D1116] bg-[#F0F2F6] text-sm"
+          >
+            <AnimatePresence mode="wait">
+              {theme === "dark" ? (
+                <motion.div key={"light"} initial="hidden" animate="visible" exit="hidden" variants={{
+                    "hidden": {opacity: 0, rotate: "25deg"},
+                    "visible": {opacity: 1, rotate: 0}
+                }} onClick={() => setTheme("light")}>
+                  <Moon size={18} />
+                </motion.div>
+              ) : (
+                <motion.div key={"dark"} initial="hidden" animate="visible" exit="hidden" variants={{
+                    "hidden": {opacity: 0, rotate: "45deg"},
+                    "visible": {opacity: 1, rotate: 0}
+                }} onClick={() => setTheme("dark")}>
+                  <Sun size={18} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+          <Link
+            href={"/auth/sign-in"}
+            className="text-neutral-700 dark:text-neutral-400 dark:hover:text-white hover:text-black transition-all duration-200 text-md"
+          >
+            Sign In
+          </Link>
+          <motion.div whileTap={{ scale: 0.95 }}>
+            <Link
+              href={"/auth/sign-up"}
+              className="transition-shadow duration-200 hover:shadow-[0px_5px_10px_-1px] hover:shadow-primary bg-primary text-white px-3 py-2 rounded-2xl font-medium"
+            >
+              Start Free
+            </Link>
+          </motion.div>
+        </section>
+      </div>
+    </div>
+  );
+}
