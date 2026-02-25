@@ -1,5 +1,6 @@
 "use client";
 
+import Header from "@/src/components/header/Header";
 import { ThemeProvider } from "next-themes";
 
 export default function ClientLayout({
@@ -15,6 +16,7 @@ export default function ClientLayout({
         disableTransitionOnChange={false}
         defaultTheme={"system"}
       >
+        <Header />
         {children}
       </ThemeProvider>
     </div>
