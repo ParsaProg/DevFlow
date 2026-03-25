@@ -10,6 +10,18 @@ import { useTheme } from "next-themes";
 export default function Header() {
   const [mounted, setMounted] = useState<boolean>(false);
   const { theme, setTheme } = useTheme();
+  const [isBorderShow, setIsBorderShow] = useState<boolean>(false);
+
+  useEffect(() => {
+    const showBorderBottomCheck = () => {
+      if (window.scrollY >= 10) setIsBorderShow(true);
+      else setIsBorderShow(false);
+    };
+
+    document.addEventListener("scroll", showBorderBottomCheck);
+
+    return () => document.removeEventListener("scroll", showBorderBottomCheck);
+  }, [isBorderShow]);
 
   useEffect(() => {
     setMounted(true);
@@ -17,14 +29,19 @@ export default function Header() {
 
   if (!mounted) return null;
   return (
-    <div className="w-full fixed top-0 dark:shadow-none shadow-[0px_0px_15px_1px] shadow-neutral-300 dark:border-b dark:border-b-[#1D2229]">
+    <div
+      className={`z-99999 w-full fixed top-0 dark:border-b-[#1D2229] dark:border-b-0 ${isBorderShow && "dark:shadow-none shadow-[0px_0px_15px_1px] shadow-neutral-300 dark:border-b-1 bg-background/80   backdrop-blur-sm"} transition-[shadow_colors] duration-200`}
+    >
       <div className="mx-auto w-[80%] flex items-center justify-between py-5">
-        <section className="flex items-center gap-x-2 font-bold">
+        <Link
+          href={"/"}
+          className="select-none flex items-center gap-x-2 font-bold"
+        >
           <div className="text-white rounded-xl bg-primary w-8 h-8 items-center flex justify-center">
             D
           </div>
           <h1 className="text-xl font-semibold">DevFlow</h1>
-        </section>
+        </Link>
         <section className="flex items-center text-neutral-700 dark:text-neutral-400 gap-x-8 ">
           {headerLinkItems.map((item, _i) => (
             <Link
@@ -43,17 +60,31 @@ export default function Header() {
           >
             <AnimatePresence mode="wait">
               {theme === "dark" ? (
-                <motion.div key={"light"} initial="hidden" animate="visible" exit="hidden" variants={{
-                    "hidden": {opacity: 0, rotate: "25deg"},
-                    "visible": {opacity: 1, rotate: 0}
-                }} onClick={() => setTheme("light")}>
+                <motion.div
+                  key={"light"}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  variants={{
+                    hidden: { opacity: 0, rotate: "25deg" },
+                    visible: { opacity: 1, rotate: 0 },
+                  }}
+                  onClick={() => setTheme("light")}
+                >
                   <Moon size={18} />
                 </motion.div>
               ) : (
-                <motion.div key={"dark"} initial="hidden" animate="visible" exit="hidden" variants={{
-                    "hidden": {opacity: 0, rotate: "45deg"},
-                    "visible": {opacity: 1, rotate: 0}
-                }} onClick={() => setTheme("dark")}>
+                <motion.div
+                  key={"dark"}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  variants={{
+                    hidden: { opacity: 0, rotate: "45deg" },
+                    visible: { opacity: 1, rotate: 0 },
+                  }}
+                  onClick={() => setTheme("dark")}
+                >
                   <Sun size={18} />
                 </motion.div>
               )}
