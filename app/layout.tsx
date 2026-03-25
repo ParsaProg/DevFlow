@@ -2,6 +2,7 @@ import ClientLayout from "./ClientLayout";
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import "./globals.css";
+import LenisProvider from "@/src/utils/lenis-provider";
 
 const title: string = "DevFlow | Home";
 const description: string =
@@ -9,8 +10,8 @@ const description: string =
 
 const geist_mono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-geist-mono"
-})
+  variable: "--font-geist-mono",
+});
 
 export const metadata: Metadata = {
   title: title,
@@ -31,7 +32,9 @@ export default function RootLayout({
       <body
         className={`transition-colors duration-500 bg-background text-for-default ${geist_mono.variable} antialiased`}
       >
-        <ClientLayout>{children}</ClientLayout>
+        <ClientLayout>
+          <LenisProvider>{children}</LenisProvider>
+        </ClientLayout>
       </body>
     </html>
   );
