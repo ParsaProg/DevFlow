@@ -46,7 +46,7 @@ export default function Header() {
           {headerLinkItems.map((item, _i) => (
             <Link
               className="dark:hover:text-white hover:text-black transition-all duration-200"
-              href={`/${item}`}
+              href={`/${item.toLowerCase()}`}
               key={_i}
             >
               {item}

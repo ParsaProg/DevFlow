@@ -1,1 +1,1 @@
-export const headerLinkItems = ["Features", "Pricing", "Docs", "Blog"];
+export const headerLinkItems = ["Features", "Pricing", "Docs", "Blog", "About us"];
