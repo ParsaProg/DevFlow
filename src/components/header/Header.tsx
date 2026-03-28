@@ -30,7 +30,7 @@ export default function Header() {
   if (!mounted) return null;
   return (
     <div
-      className={`z-99999 w-full fixed top-0 dark:border-b-[#1D2229] dark:border-b-0 ${isBorderShow && "dark:shadow-none shadow-[0px_0px_15px_1px] shadow-neutral-300 dark:border-b-1 bg-background/95 backdrop-blur-2xl"} bg-transparent transition-[shadow_colors] duration-200`}
+      className={`z-99999 w-full fixed top-0 dark:border-b-[#1D2229] dark:border-b-0 ${isBorderShow && "dark:shadow-none shadow-[0px_0px_15px_1px] shadow-neutral-300 dark:border-b-1 dark:bg-[#05070bc5] bg-[#f6f7f8d3] backdrop-blur-sm"} bg-transparent transition-[shadow_colors] duration-200`}
     >
       <div className="mx-auto min-[1300px]:w-325 flex items-center justify-between py-5">
         <Link
@@ -99,7 +99,7 @@ export default function Header() {
           <motion.div whileTap={{ scale: 0.95 }}>
             <Link
               href={"/auth/sign-up"}
-              className="transition-shadow duration-200 hover:shadow-[0px_5px_10px_-1px] hover:shadow-primary bg-primary text-white px-5 py-2 rounded-2xl font-medium"
+              className="font-semibold text-sm transition-shadow duration-200 hover:shadow-[0px_5px_10px_-1px] hover:shadow-primary bg-primary text-white px-5 py-2 rounded-2xl"
             >
               Start Free
             </Link>
