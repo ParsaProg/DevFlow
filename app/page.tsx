@@ -1,10 +1,11 @@
 "use client";
 
-import HeroSection from "@/src/components/landing/HeroSection";
+import HeroSection from "@/src/components/landing/HeroSection/HeroSection";
 
 export default function Home() {
   return <div className="w-full">
     <HeroSection />
-    <div className="h-[200px]"></div>
+    
+    <div className="h-2500"></div>
   </div>;
 }
