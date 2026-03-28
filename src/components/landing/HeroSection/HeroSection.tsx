@@ -11,9 +11,11 @@ const HeroSection = () => {
   ];
 
   return (
-    <div className="relative h-235 ">
+    <div className="relative h-[50vw] ">
+      <div className="absolute top-[50%] translate-y-[-50%] left-0 w-50 h-100 rounded-full bg-primary blur-[150px] opacity-20 -translate-x-20"></div>
+      <div className="absolute top-[50%] translate-y-[-50%] right-0 w-50 h-100 rounded-full bg-purple-500 blur-[100px] opacity-10 translate-x-20"></div>
       <div className="absolute w-full text-center">
-        <div className="w-full h-235 flex aspect-video flex-col items-center justify-center">
+        <div className="w-full h-[50vw] flex aspect-video flex-col items-center justify-center">
           <BGPattern variant="grid" mask="fade-edges" />
         </div>
       </div>
