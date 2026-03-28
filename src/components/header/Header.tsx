@@ -30,7 +30,7 @@ export default function Header() {
   if (!mounted) return null;
   return (
     <div
-      className={`z-99999 w-full fixed top-0 dark:border-b-[#1D2229] dark:border-b-0 ${isBorderShow && "dark:shadow-none shadow-[0px_0px_15px_1px] shadow-neutral-300 dark:border-b-1 bg-background/95 backdrop-blur-md"} bg-transparent transition-[shadow_colors] duration-200`}
+      className={`z-99999 w-full fixed top-0 dark:border-b-[#1D2229] dark:border-b-0 ${isBorderShow && "dark:shadow-none shadow-[0px_0px_15px_1px] shadow-neutral-300 dark:border-b-1 bg-background/95 backdrop-blur-2xl"} bg-transparent transition-[shadow_colors] duration-200`}
     >
       <div className="mx-auto min-[1300px]:w-325 flex items-center justify-between py-5">
         <Link
