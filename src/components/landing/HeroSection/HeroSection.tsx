@@ -21,9 +21,11 @@ const HeroSection = () => {
       </div>
       <div className="flex items-center min-[1300px]:w-325 justify-between absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] mx-auto ">
         <section className="w-[50%] flex flex-col items-start gap-y-8 ">
-          <div className="rounded-full dark:bg-[#1e232d47] bg-[#F1F3F7] border dark:border-neutral-800 border-neutral-700 text-neutral-600 dark:text-neutral-400 flex items-center py-2 px-4 gap-x-2 text-xs font-semibold">
-            <div className="rounded-full bg-[#00A9B3] w-2 h-2 ">
-              <div className="rounded-full bg-[#00A9B3] w-2 h-2 animate-ping"></div>
+          <div className="rounded-full dark:bg-[#1e232d47] bg-[#F1F3F7] border dark:border-neutral-800 border-neutral-700 text-neutral-600 dark:text-neutral-400 flex items-center py-2 px-4 gap-x-2 text-xs font-semibold backdrop-blur-sm">
+            <div className="relative">
+              <div className="rounded-full bg-[#00A9B3] w-2 h-2">
+                <div className="rounded-full bg-[#00A9B3] w-2 h-2 animate-ping"></div>
+              </div>
             </div>
             Now in Public Beta
           </div>
