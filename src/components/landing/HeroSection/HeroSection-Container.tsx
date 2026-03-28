@@ -88,15 +88,11 @@ const HeroSectionContainer = () => {
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="rounded-3xl w-[45%] relative"
+      className="rounded-3xl w-[45%] relative shadow-primary/15 shadow-[0px_0px_100px_20px]"
       style={{
         rotateX,
         rotateY,
         transformStyle: "preserve-3d",
-        boxShadow: useTransform(
-          [shadowX, shadowY],
-          ([sx, sy]) => `${sx}px ${sy}px 100px 20px rgba(0, 0, 0, 0.15)`,
-        ),
       }}
     >
       <motion.div
