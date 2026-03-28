@@ -50,7 +50,7 @@ const BGPattern = ({
   variant = "grid",
   mask = "none",
   size = 70,
-  maskSize = 90, // Default spread
+  maskSize = 120, // Default spread
   className,
   style,
   ...props
@@ -65,7 +65,7 @@ const BGPattern = ({
   if (!mounted) return null;
 
   // Improved colors for better visibility
-  const fill = theme === "dark" ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.1)";
+  const fill = theme === "dark" ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.1)";
   const bgSize = `${size}px ${size}px`;
   const backgroundImage = getBgImage(variant, fill, size);
 
