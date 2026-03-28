@@ -88,7 +88,7 @@ const HeroSectionContainer = () => {
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="rounded-3xl w-[45%] relative shadow-primary/15 shadow-[0px_0px_100px_20px]"
+      className="scale-[0.95] rounded-3xl w-[45%] relative shadow-primary/15 shadow-[0px_0px_100px_20px]"
       style={{
         rotateX,
         rotateY,
