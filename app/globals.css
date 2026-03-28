@@ -3,6 +3,7 @@
 @custom-variant dark (&:is(.dark *));
 
 body {
+  
   box-sizing: border-box;
 }
 
