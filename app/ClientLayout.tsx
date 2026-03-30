@@ -1,7 +1,10 @@
 "use client";
 
 import Header from "@/src/components/header/Header";
+import NavigationProgress from "@/src/components/ui/NavigationProgress";
 import { ThemeProvider } from "next-themes";
+import { Suspense } from "react";
+import "./nprogress.css";
 
 export default function ClientLayout({
   children,
@@ -16,6 +19,9 @@ export default function ClientLayout({
         disableTransitionOnChange={false}
         defaultTheme={"system"}
       >
+        <Suspense fallback={null}>
+          <NavigationProgress />
+        </Suspense>
         <Header />
         {children}
       </ThemeProvider>
