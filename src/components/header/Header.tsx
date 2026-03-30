@@ -6,6 +6,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
+import NProgress from "nprogress";
 
 export default function Header() {
   const [mounted, setMounted] = useState<boolean>(false);
@@ -34,6 +35,7 @@ export default function Header() {
     >
       <div className="mx-auto min-[1300px]:w-325 flex items-center justify-between py-5">
         <Link
+          onClick={() => NProgress.start()}
           href={"/"}
           className="select-none flex items-center gap-x-2 font-bold"
         >
@@ -42,10 +44,11 @@ export default function Header() {
           </div>
           <h1 className="text-xl font-semibold">DevFlow</h1>
         </Link>
-        <section className="flex items-center text-neutral-700 dark:text-neutral-400 gap-x-8 ">
+        <section className="flex items-center text-neutral-700 dark:text-neutral-400 gap-x-7 ">
           {headerLinkItems.map((item, _i) => (
             <Link
-              className="dark:hover:text-white hover:text-black transition-all duration-200"
+              onClick={() => NProgress.start()}
+              className="text-md dark:hover:text-white hover:text-black transition-all duration-200"
               href={`/${item.toLowerCase()}`}
               key={_i}
             >
