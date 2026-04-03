@@ -59,6 +59,8 @@ const BGPattern = ({
   const { theme } = useTheme();
 
   useEffect(() => {
+    const theme = localStorage.getItem("theme") || null;
+    theme === null && localStorage.setItem("theme", "dark");
     setMounted(true);
   }, []);
 
