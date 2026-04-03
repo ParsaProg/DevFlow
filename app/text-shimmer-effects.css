@@ -1,0 +1,80 @@
+/* shimmer.css */
+
+:root {
+  --shimmer-bg: #0f0f0f;
+  --shimmer-text: #e5e5e5;
+  --shimmer-highlight: rgba(255, 255, 255, 0.08);
+}
+
+/* Light theme override */
+[data-theme="light"] {
+  --shimmer-bg: #ffffff;
+  --shimmer-text: #1a1a1a;
+  --shimmer-highlight: rgba(0, 0, 0, 0.08);
+}
+
+/* Dark theme (default) */
+[data-theme="dark"] {
+  --shimmer-bg: #0f0f0f;
+  --shimmer-text: #e5e5e5;
+  --shimmer-highlight: rgba(255, 255, 255, 0.08);
+}
+
+/* Optional: system preference fallback */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --shimmer-bg: #ffffff;
+    --shimmer-text: #1a1a1a;
+    --shimmer-highlight: rgba(0, 0, 0, 0.08);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --shimmer-bg: #0f0f0f;
+    --shimmer-text: #e5e5e5;
+    --shimmer-highlight: rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* Shimmer text */
+.shimmer-text {
+  position: relative;
+  display: inline-block;
+  color: var(--shimmer-text);
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    var(--shimmer-highlight) 40%,
+    var(--shimmer-highlight) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 2.5s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .shimmer-text {
+    animation: none;
+    color: var(--shimmer-text);
+    background: none;
+  }
+}
+
+/* Example utility (optional) */
+.shimmer-container {
+  background-color: var(--shimmer-bg);
+}
