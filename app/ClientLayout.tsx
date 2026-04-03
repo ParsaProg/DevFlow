@@ -5,6 +5,7 @@ import NavigationProgress from "@/src/components/ui/NavigationProgress";
 import { ThemeProvider } from "next-themes";
 import { Suspense } from "react";
 import "./nprogress.css";
+import Footer from "@/src/components/footer/Footer";
 
 export default function ClientLayout({
   children,
@@ -24,6 +25,7 @@ export default function ClientLayout({
         </Suspense>
         <Header />
         {children}
+        <Footer />
       </ThemeProvider>
     </div>
   );
