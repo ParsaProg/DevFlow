@@ -24,7 +24,9 @@ export default function ClientLayout({
           <NavigationProgress />
         </Suspense>
         <Header />
+        <div className="h-25"></div>
         {children}
+        <div className="h-12.5"></div>
         <Footer />
       </ThemeProvider>
     </div>
