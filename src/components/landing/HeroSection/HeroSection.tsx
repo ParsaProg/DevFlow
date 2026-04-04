@@ -14,7 +14,7 @@ const HeroSection = () => {
 
   return (
     // Root: auto height on mobile, fixed vw on very wide screens
-    <div className="relative min-[1450px]:h-[53vw] h-auto min-h-screen sm:min-h-0">
+    <div className="-mt-25 relative min-[1450px]:h-[53vw] h-auto min-h-screen sm:min-h-0">
       {/* Blur blobs — hidden on small mobile to avoid overflow */}
       <div className="hidden sm:block absolute top-[50%] translate-y-[-50%] left-0 w-50 h-70 rounded-full bg-primary blur-[150px] opacity-30 -translate-x-20 pointer-events-none" />
       <div className="hidden sm:block absolute top-[50%] translate-y-[-50%] right-0 w-50 h-70 rounded-full bg-purple-500 blur-[100px] opacity-10 translate-x-30 pointer-events-none" />
