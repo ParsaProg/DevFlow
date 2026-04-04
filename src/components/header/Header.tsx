@@ -236,6 +236,7 @@ export default function Header() {
               </AnimatePresence>
             </motion.div>
             <Link
+              onClick={() => NProgress.start()}
               href={"/auth/sign-in"}
               className="hidden min-[900px]:block text-neutral-700 dark:text-neutral-400 dark:hover:text-white hover:text-black transition-all duration-200 text-md"
             >
@@ -243,6 +244,7 @@ export default function Header() {
             </Link>
             <motion.div whileTap={{ scale: 0.95 }}>
               <Link
+                onClick={() => NProgress.start()}
                 href={"/auth/sign-up"}
                 className="hidden min-[900px]:block font-semibold text-sm transition-shadow duration-200 hover:shadow-[0px_5px_10px_-1px] hover:shadow-primary bg-primary text-white px-5 py-2 rounded-2xl"
               >
@@ -278,6 +280,10 @@ export default function Header() {
                   transition={{ delay: _i * 0.1 }}
                 >
                   <Link
+                    onClick={() => {
+                      NProgress.start();
+                      setIsShowMobileMenu(false);
+                    }}
                     href={item.toLowerCase()}
                     className="hover:dark:text-white transition-colors duration-200"
                   >
@@ -297,6 +303,10 @@ export default function Header() {
                 transition={{ delay: 5 * 0.1 }}
               >
                 <Link
+                  onClick={() => {
+                    NProgress.start();
+                    setIsShowMobileMenu(false);
+                  }}
                   href={"/auth/sign-in"}
                   className=" text-neutral-700 dark:text-neutral-400 dark:hover:text-white hover:text-black transition-all duration-200 text-md"
                 >
@@ -314,6 +324,10 @@ export default function Header() {
                 whileTap={{ scale: 0.95 }}
               >
                 <Link
+                  onClick={() => {
+                    NProgress.start();
+                    setIsShowMobileMenu(false);
+                  }}
                   href={"/auth/sign-up"}
                   className=" font-semibold text-sm transition-shadow duration-200 hover:shadow-[0px_5px_10px_-1px] hover:shadow-primary bg-primary text-white px-5 py-2 rounded-2xl"
                 >
