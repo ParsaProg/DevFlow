@@ -11,7 +11,8 @@ const description: string =
 export const metadata: Metadata = {
   title: title,
   description: description,
-  openGraph: {
+  openGraph: { title: title, description: description },
+  twitter: {
     title: title,
     description: description,
   },
