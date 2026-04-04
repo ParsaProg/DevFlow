@@ -10,33 +10,59 @@ export default function LandingTrustedSection() {
     "Prisma",
     "Railway",
   ];
-  
+
   return (
     <div className="w-full max-[1340px]:w-[90%] mx-auto">
       <div className="min-[1340px]:max-w-325 w-full mx-auto py-12 sm:py-16 md:py-20 lg:py-30 flex flex-col items-center gap-y-5">
-        <span className="dark:text-neutral-500 text-sm shimmer text-center">
+        <motion.span
+          transition={{ delay: 0.6 }}
+          viewport={{ once: true }}
+          initial="hidden"
+          whileInView="animate"
+          variants={{
+            hidden: { opacity: 0, x: -100 },
+            animate: { opacity: 1, x: 0 },
+          }}
+          className="dark:text-neutral-500 text-sm shimmer text-center"
+        >
           Trusted by engineering teams at
-        </span>
-        
+        </motion.span>
+
         {/* Trusted companies grid - responsive wrapping */}
         <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-5 mt-1 px-2">
           {trustedCompanys.map((tItem, _i) => {
             return (
-              <div
+              <motion.div
+                transition={{ delay: _i * 0.1 }}
+                viewport={{ once: true }}
+                initial="hidden"
+                whileInView="animate"
+                variants={{
+                  hidden: { opacity: 0, x: -100 },
+                  animate: { opacity: 1, x: 0 },
+                }}
                 key={_i}
                 className="shimmer text-sm sm:text-base md:text-lg lg:text-xl py-1.5 sm:py-2 px-3 sm:px-4 border dark:border-gray-900 rounded-2xl dark:text-gray-700 font-semibold shimmer--slow"
               >
                 {tItem}
-              </div>
+              </motion.div>
             );
           })}
         </div>
-        
+
         {/* Comments section - responsive grid */}
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 mt-6 sm:mt-8 md:mt-10">
           {trustedUsersCommentsLandingItem.map((tuc, _i) => {
             return (
-              <div
+              <motion.div
+                transition={{ delay: _i * 0.2 }}
+                viewport={{ once: true }}
+                initial="hidden"
+                whileInView="animate"
+                variants={{
+                  hidden: { opacity: 0, x: -100 },
+                  animate: { opacity: 1, x: 0 },
+                }}
                 key={_i}
                 className="flex flex-col gap-y-4 sm:gap-y-5 items-start w-full rounded-3xl px-4 sm:px-5 pt-4 sm:pt-5 pb-6 sm:pb-8 dark:bg-[#0C1015] border dark:border-neutral-800"
               >
@@ -56,28 +82,38 @@ export default function LandingTrustedSection() {
                     </span>
                   </div>
                 </section>
-              </div>
+              </motion.div>
             );
           })}
         </div>
-        
+
         {/* CTA section - responsive sizing */}
-        <div className="mt-8 sm:mt-10 flex flex-col gap-y-3 items-center w-full rounded-3xl py-8 sm:py-10 px-4 sm:px-6 md:px-8 dark:bg-[#0C1015] border dark:border-neutral-800 max-w-full sm:max-w-[90%] md:max-w-[80%] lg:max-w-200">
+        <motion.div
+          transition={{ delay: 1 }}
+          viewport={{ once: true }}
+          initial="hidden"
+          whileInView="animate"
+          variants={{
+            hidden: { opacity: 0, x: -100 },
+            animate: { opacity: 1, x: 0 },
+          }}
+          className="mt-8 sm:mt-10 flex flex-col gap-y-3 items-center w-full rounded-3xl py-8 sm:py-10 px-4 sm:px-6 md:px-8 dark:bg-[#0C1015] border dark:border-neutral-800 max-w-full sm:max-w-[90%] md:max-w-[80%] lg:max-w-200"
+        >
           <h1 className="shimmer shimmer--slow text-xl sm:text-2xl md:text-3xl lg:text-2xl font-bold text-center px-2">
             Ready to streamline your workflow?
           </h1>
           <h5 className="shimmer shimmer--slow text-sm sm:text-md font-semibold dark:text-gray-500 text-center px-2">
             Start free. No credit card required.
           </h5>
-          <motion.button 
+          <motion.button
             whileTap={{
-              scale: 0.95
-            }} 
+              scale: 0.95,
+            }}
             className="cursor-pointer mt-2 sm:mt-3 bg-primary text-sm sm:text-md font-semibold px-4 sm:px-5 py-2 sm:py-2.5 text-white rounded-2xl"
           >
             Get Started
           </motion.button>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
