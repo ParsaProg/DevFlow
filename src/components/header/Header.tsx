@@ -81,21 +81,22 @@ export default function Header() {
         className={`overflow-hidden z-99999 w-full left-[50%] translate-x-[-50%] fixed top-0 dark:border-b-[#1D2229] dark:border-b-0 ${isBorderShow && "dark:shadow-none shadow-[0px_0px_15px_1px] shadow-neutral-300 dark:border-b-1 dark:bg-[#05070bc5] bg-[#f6f7f8d3] backdrop-blur-sm"} bg-transparent transition-[shadow_colors] duration-200`}
       >
         <div className="mx-auto min-[1340px]:w-325 w-[92%] flex items-center justify-between py-5">
-          <motion.div
-            transition={{ delay: 0.6 }}
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0, x: -100 },
-              visible: { opacity: 1, x: 0 },
-            }}
-          >
+          <div>
             <Link
               onClick={() => NProgress.start()}
               href={"/"}
               className="select-none flex items-center gap-x-3 font-bold"
             >
-              <div className="overflow-hidden text-white rounded-xl w-8 h-8 items-center flex justify-center">
+              <motion.div
+                transition={{ delay: 2 }}
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0, x: -20, scale: 0.5, rotate: 90 },
+                  visible: { opacity: 1, x: 0, scale: 1, rotate: 0 },
+                }}
+                className="overflow-hidden text-white rounded-xl w-8 h-8 items-center flex justify-center"
+              >
                 <Image
                   width={100}
                   height={100}
@@ -103,10 +104,29 @@ export default function Header() {
                   src={DevFlow.src}
                   className="w-100"
                 />
-              </div>
-              <h1 className="text-xl font-semibold">DevFlow</h1>
+              </motion.div>
+              {showItems && (
+                <h1 className="text-xl font-semibold">
+                  {"DevFlow".split("").map((C, _i) => {
+                    return (
+                      <motion.span
+                        key={_i}
+                        transition={{ delay: _i * 0.2, duration: 0.4 }}
+                        initial="hidden"
+                        animate="visible"
+                        variants={{
+                          hidden: { opacity: 0, x: -20 },
+                          visible: { opacity: 1, x: 0 },
+                        }}
+                      >
+                        {C}
+                      </motion.span>
+                    );
+                  })}
+                </h1>
+              )}
             </Link>
-          </motion.div>
+          </div>
           {showItems && (
             <section className="hidden min-[900px]:flex items-center text-neutral-700 dark:text-neutral-400 gap-x-7 ">
               {headerLinkItems.map((item, _i) => (
