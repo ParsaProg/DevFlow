@@ -13,7 +13,7 @@ export default function LandingTrustedSection() {
 
   return (
     <div className="w-full max-[1340px]:w-[90%] mx-auto">
-      <div className="min-[1340px]:max-w-325 w-full mx-auto py-12 sm:py-16 md:py-20 lg:py-30 flex flex-col items-center gap-y-5">
+      <div className="min-[1340px]:max-w-325 w-full mx-auto pt-12 sm:pt-16 md:pt-20 lg:pt-30 flex flex-col items-center gap-y-5">
         <motion.span
           transition={{ delay: 0.6 }}
           viewport={{ once: true }}
