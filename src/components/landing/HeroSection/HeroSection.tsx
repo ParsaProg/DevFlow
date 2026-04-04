@@ -1,6 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import HeroSectionContainer from "./HeroSection-Container";
 import { HeroGeometric } from "@/src/components/ui/shape-landing-hero";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const HeroSection = () => {
   const developersList = [
@@ -49,46 +51,122 @@ const HeroSection = () => {
         {/* ── Left: text content ── */}
         <section className="w-full lg:w-[50%] flex flex-col items-start gap-y-8">
           {/* Beta badge */}
-          <div className="rounded-full dark:bg-[#0f121a] bg-[#F1F3F7] border dark:border-neutral-700 border-neutral-700 text-neutral-600 dark:text-neutral-400 flex items-center py-2 px-4 gap-x-2 text-xs">
+          <motion.div
+            transition={{ delay: 0.5 }}
+            initial="hidden"
+            variants={{
+              hidden: { opacity: 0, x: -100 },
+            }}
+            whileInView={{
+              opacity: 1,
+              x: 0,
+            }}
+            viewport={{ once: true }}
+            className="rounded-full dark:bg-[#0f121a] bg-[#F1F3F7] border dark:border-neutral-700 border-neutral-700 text-neutral-600 dark:text-neutral-400 flex items-center py-2 px-4 gap-x-2 text-xs"
+          >
             <div className="relative">
               <div className="rounded-full bg-[#00A9B3] w-2 h-2">
                 <div className="rounded-full bg-[#00A9B3] w-2 h-2 animate-ping" />
               </div>
             </div>
             Now in Public Beta
-          </div>
+          </motion.div>
 
           {/* Headline */}
-          <h1 className="flex flex-col text-4xl sm:text-5xl lg:text-6xl gap-y-2 font-bold">
+          <motion.h1
+            transition={{ delay: 0.6 }}
+            initial="hidden"
+            variants={{
+              hidden: { opacity: 0, x: -100 },
+            }}
+            whileInView={{
+              opacity: 1,
+              x: 0,
+            }}
+            viewport={{ once: true }}
+            className="flex flex-col text-4xl sm:text-5xl lg:text-6xl gap-y-2 font-bold"
+          >
             Ship faster with
             <span className="text-primary">structured clarity</span>
-          </h1>
+          </motion.h1>
 
           {/* Description */}
-          <p className="w-full max-w-[500px] text-neutral-600 dark:text-neutral-400 text-base sm:text-lg lg:text-xl">
+          <motion.p
+            transition={{ delay: 0.7 }}
+            initial="hidden"
+            variants={{
+              hidden: { opacity: 0, x: -100 },
+            }}
+            whileInView={{
+              opacity: 1,
+              x: 0,
+            }}
+            viewport={{ once: true }}
+            className="w-full max-w-[500px] text-neutral-600 dark:text-neutral-400 text-base sm:text-lg lg:text-xl"
+          >
             The developer workspace that combines issue tracking, task
             management, and team collaboration into one streamlined experience.
-          </p>
+          </motion.p>
 
           {/* CTA buttons */}
           <div className="w-full min-[700px]:flex-row flex-col flex items-center gap-5 font-semibold mt-3">
-            <button className="justify-center max-[900px]:w-full transition-all duration-300 hover:translate-y-[-3px] cursor-pointer rounded-2xl px-7 py-3 bg-primary text-white shadow-primary/70 shadow-[0px_0px_25px_0px] flex items-center gap-x-2 text-sm">
-              Start Free
-              <ArrowRight size={18} />
-            </button>
-            <button className="max-[900px]:w-full transition-all dark:hover:bg-[#181b22] duration-300 hover:translate-y-[-3px] cursor-pointer border dark:border-neutral-800 rounded-2xl px-7 py-3 dark:text-white text-black dark:bg-[#1e232e4e] text-sm">
-              Back Demo
-            </button>
+            <motion.div
+              className="w-full sm:w-auto "
+              transition={{ delay: 0.8 }}
+              initial="hidden"
+              variants={{
+                hidden: { opacity: 0, x: -100 },
+              }}
+              whileInView={{
+                opacity: 1,
+                x: 0,
+              }}
+              viewport={{ once: true }}
+            >
+              <button className="justify-center max-[900px]:w-full transition-all duration-300 hover:translate-y-[-3px] cursor-pointer rounded-2xl px-7 py-3 bg-primary text-white shadow-primary/70 shadow-[0px_0px_25px_0px] flex items-center gap-x-2 text-sm">
+                Start Free
+                <ArrowRight size={18} />
+              </button>
+            </motion.div>
+
+            <motion.div
+              className="sm:w-auto w-full"
+              transition={{ delay: 0.9 }}
+              initial="hidden"
+              variants={{
+                hidden: { opacity: 0, x: -200 },
+              }}
+              whileInView={{
+                opacity: 1,
+                x: 0,
+              }}
+              viewport={{ once: true }}
+            >
+              <button className="max-[900px]:w-full transition-all dark:hover:bg-[#181b22] duration-300 hover:translate-y-[-3px] cursor-pointer border dark:border-neutral-800 rounded-2xl px-7 py-3 dark:text-white text-black dark:bg-[#1e232e4e] text-sm">
+                Back Demo
+              </button>
+            </motion.div>
           </div>
 
           {/* Divider */}
           <span className="mt-2 w-full h-[0.25px] dark:bg-neutral-800 bg-neutral-400" />
 
           {/* Developers trust row */}
+
           <div className="mt-2 flex items-center gap-x-3">
             <div className="flex relative items-center">
               {developersList.map((val, _i) => (
-                <div
+                <motion.div
+                  transition={{ delay: _i * 0.1 }}
+                  initial="hidden"
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.5 },
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    scale: 1,
+                  }}
+                  viewport={{ once: true }}
                   key={_i}
                   style={{
                     backgroundColor: val.color,
@@ -97,22 +175,46 @@ const HeroSection = () => {
                   className="absolute rounded-full text-xs w-8 h-8 flex items-center justify-center font-semibold text-white border-2 border-background"
                 >
                   {val.name}
-                </div>
+                </motion.div>
               ))}
             </div>
-            <span className="text-xs ml-28 text-white font-medium">
+            <motion.span
+              transition={{ delay: 4 * 0.1 }}
+              initial="hidden"
+              variants={{
+                hidden: { opacity: 0, x: -100 },
+              }}
+              whileInView={{
+                opacity: 1,
+                x: 0,
+              }}
+              viewport={{ once: true }}
+              className="text-xs ml-28 text-white font-medium"
+            >
               2,400+{" "}
               <span className="dark:text-neutral-500">
                 developers trust DevFlow
               </span>
-            </span>
+            </motion.span>
           </div>
         </section>
 
         {/* ── Right: 3D card — full width on mobile, 45% on desktop ── */}
-        <div className="w-full sm:w-[85%] md:w-[70%] lg:w-[45%]">
+        <motion.div
+          transition={{ delay: 1.1, duration: 0.3 }}
+          initial="hidden"
+          variants={{
+            hidden: { opacity: 0, scale: 0.3 },
+          }}
+          whileInView={{
+            opacity: 1,
+            scale: 1,
+          }}
+          viewport={{ once: true }}
+          className="w-full sm:w-[85%] md:w-[70%] lg:w-[45%]"
+        >
           <HeroSectionContainer />
-        </div>
+        </motion.div>
       </div>
     </div>
   );
