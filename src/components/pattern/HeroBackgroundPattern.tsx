@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/src/utils/tailwindCn";
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
@@ -30,15 +32,15 @@ type BGPatternProps = React.ComponentProps<"div"> & {
 function getBgImage(variant: BGVariantType, fill: string, size: number) {
   switch (variant) {
     case "dots":
-      return `radial-gradient(${fill} 1px, transparent 1px)`;
+      return `radial-gradient(circle at center, ${fill} 1.5px, transparent 1.5px)`;
     case "grid":
       return `linear-gradient(to right, ${fill} 1px, transparent 1px), linear-gradient(to bottom, ${fill} 1px, transparent 1px)`;
     case "diagonal-stripes":
-      return `repeating-linear-gradient(45deg, ${fill}, ${fill} 1px, transparent 1px, transparent ${size}px)`;
+      return `repeating-linear-gradient(45deg, ${fill}, ${fill} 2px, transparent 2px, transparent ${size}px)`;
     case "horizontal-lines":
-      return `linear-gradient(to bottom, ${fill} 1px, transparent 1px)`;
+      return `repeating-linear-gradient(to bottom, ${fill}, ${fill} 1px, transparent 1px, transparent ${size}px)`;
     case "vertical-lines":
-      return `linear-gradient(to right, ${fill} 1px, transparent 1px)`;
+      return `repeating-linear-gradient(to right, ${fill}, ${fill} 1px, transparent 1px, transparent ${size}px)`;
     case "checkerboard":
       return `linear-gradient(45deg, ${fill} 25%, transparent 25%), linear-gradient(-45deg, ${fill} 25%, transparent 25%), linear-gradient(45deg, transparent 75%, ${fill} 75%), linear-gradient(-45deg, transparent 75%, ${fill} 75%)`;
     default:
@@ -49,26 +51,30 @@ function getBgImage(variant: BGVariantType, fill: string, size: number) {
 const BGPattern = ({
   variant = "grid",
   mask = "none",
-  size = 70,
-  maskSize = 120, // Default spread
+  size = 123,
+  maskSize = 123,
   className,
   style,
   ...props
 }: BGPatternProps) => {
   const [mounted, setMounted] = useState<boolean>(false);
-  const { theme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
 
   useEffect(() => {
-    const theme = localStorage.getItem("theme") || null;
-    theme === null && localStorage.setItem("theme", "dark");
     setMounted(true);
   }, []);
 
   if (!mounted) return null;
 
+  // Use resolvedTheme to get actual theme value
+  const currentTheme = resolvedTheme || theme || "dark";
+  
   // Improved colors for better visibility
-  const fill = theme === "dark" ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.1)";
-  const bgSize = `${size}px ${size}px`;
+  const fill = currentTheme === "dark" 
+    ? "rgba(255, 255, 255, 0.08)"  // Increased opacity for dark mode
+    : "rgba(0, 0, 0, 0.06)";       // Increased opacity for light mode
+  
+  const bgSize = variant === "checkerboard" ? `${size/2}px ${size/2}px` : `${size}px ${size}px`;
   const backgroundImage = getBgImage(variant, fill, size);
 
   // Dynamic Mask Logic
@@ -96,19 +102,27 @@ const BGPattern = ({
     }
   };
 
+  const maskImage = getMaskImage();
+  const backgroundStyles: React.CSSProperties = {
+    backgroundImage,
+    backgroundSize: bgSize,
+    backgroundRepeat: variant === "checkerboard" ? "repeat" : "repeat",
+    ...style,
+  };
+
+  // Apply mask only if not 'none'
+  if (mask !== "none" && maskImage !== "none") {
+    backgroundStyles.WebkitMaskImage = maskImage;
+    backgroundStyles.maskImage = maskImage;
+  }
+
   return (
     <div
       className={cn(
         "absolute inset-0 -z-10 h-full w-full pointer-events-none",
         className,
       )}
-      style={{
-        backgroundImage,
-        backgroundSize: bgSize,
-        WebkitMaskImage: getMaskImage(),
-        maskImage: getMaskImage(),
-        ...style,
-      }}
+      style={backgroundStyles}
       {...props}
     />
   );
