@@ -1,6 +1,7 @@
 import ClientLayout from "./ClientLayout";
 import type { Metadata } from "next";
 import "./globals.css";
+import "./loader-spinner.css";
 import "./text-shimmer-effects.css";
 import LenisProvider from "@/src/utils/lenis-provider";
 
