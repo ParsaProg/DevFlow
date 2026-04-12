@@ -201,14 +201,15 @@ const HeroSection = () => {
 
         {/* ── Right: 3D card — full width on mobile, 45% on desktop ── */}
         <motion.div
-          transition={{ delay: 1.1, duration: 0.3 }}
+          transition={{ delay: 0.79, duration: 0.443}}
           initial="hidden"
           variants={{
-            hidden: { opacity: 0, scale: 0.3 },
+            hidden: { opacity: 0, y: -50, x: 11 },
           }}
           whileInView={{
             opacity: 1,
-            scale: 1,
+            y: 0,
+            x: 0,
           }}
           viewport={{ once: true }}
           className="w-full sm:w-[85%] md:w-[70%] lg:w-[45%]"
