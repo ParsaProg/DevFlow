@@ -1,11 +1,12 @@
 #nprogress {
   pointer-events: none;
+  z-index: 9999999;
 }
 
 #nprogress .bar {
   background: #6366f1; /* ← change to your brand color */
   position: fixed;
-  z-index: 9999;
+  z-index: 99999;
   top: 0;
   left: 0;
   width: 100%;
@@ -14,12 +15,15 @@
 }
 
 #nprogress .peg {
+  z-index: 100000;
   display: block;
   position: absolute;
   right: 0;
   width: 100px;
   height: 100%;
-  box-shadow: 0 0 10px #6366f1, 0 0 5px #6366f1;
+  box-shadow:
+    0 0 10px #6366f1,
+    0 0 5px #6366f1;
   opacity: 1;
   transform: rotate(3deg) translate(0px, -4px);
 }
