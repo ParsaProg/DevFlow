@@ -1,6 +1,6 @@
 import { InputFieldInterface } from "@/src/interfaces/input-fields";
 import { AnimatePresence, motion } from "framer-motion";
-import { Eye, EyeClosed } from "lucide-react";
+import { Eye } from "lucide-react";
 import { useState } from "react";
 
 export default function AuthPageInputFields({
