@@ -10,6 +10,7 @@ import NProgress from "nprogress";
 import Image from "next/image";
 import DevFlow from "@/app/assets/pictures/devflow.png";
 import { usePathname } from "next/navigation";
+import ThemeToggleButton from "../ui/ThemeToggleButton";
 
 export default function Header() {
   const pathName = usePathname();
@@ -31,9 +32,7 @@ export default function Header() {
 
   useEffect(() => {
     const pth = pathName.toString().trim();
-    const condition1 = "/auth/sign-in";
-    const condition2 = "/auth/sign-up";
-    if (pth === condition1 || pth === condition2) setShowHeader(false);
+    if (pth !== "/") setShowHeader(false);
     else setShowHeader(true);
   }, [pathName]);
 
@@ -173,44 +172,9 @@ export default function Header() {
                   visible: { opacity: 1, x: 0 },
                 }}
                 transition={{ delay: 0.6 }}
-                className="flex items-center min-[1340px]:gap-x-5 gap-x-2"
+                className="flex items-center min-[1340px]:gap-x-5 gap-x-4"
               >
-                <motion.div
-                  whileTap={{ scale: 0.95 }}
-                  className="p-2 rounded-2xl border border-neutral-300 dark:border-[#1D2229] dark:bg-[#0D1116] bg-[#F0F2F6] text-sm"
-                >
-                  <AnimatePresence mode="wait">
-                    {theme === "dark" ? (
-                      <motion.div
-                        key={"light"}
-                        initial="hidden"
-                        animate="visible"
-                        exit="hidden"
-                        variants={{
-                          hidden: { opacity: 0, rotate: "25deg" },
-                          visible: { opacity: 1, rotate: 0 },
-                        }}
-                        onClick={() => setTheme("light")}
-                      >
-                        <Moon size={18} />
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key={"dark"}
-                        initial="hidden"
-                        animate="visible"
-                        exit="hidden"
-                        variants={{
-                          hidden: { opacity: 0, rotate: "45deg" },
-                          visible: { opacity: 1, rotate: 0 },
-                        }}
-                        onClick={() => setTheme("dark")}
-                      >
-                        <Sun size={18} />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
+                <ThemeToggleButton />
                 <motion.div
                   onClick={() => setIsShowMobileMenu(!isShowMobileMenu)}
                   whileTap={{ scale: 0.95 }}
