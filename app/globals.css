@@ -107,7 +107,7 @@ body {
   font-style: normal;
 }
 
-.inter{
+.inter {
   font-family: "Inter", sans-serif;
 }
 
@@ -189,4 +189,19 @@ input:-webkit-autofill:focus {
   caret-color: inherit;
 
   transition: background-color 9999s ease-in-out 0s;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.35s cubic-bezier(0.21, 1.02, 0.73, 1) forwards;
 }
