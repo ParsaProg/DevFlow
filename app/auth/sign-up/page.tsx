@@ -8,10 +8,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
 import AuthPageInputFields from "@/src/components/auth/InputFields";
-import { ArrowRight, Key, LockKeyhole, Mail, User2 } from "lucide-react";
+import {
+  Check,
+  CheckCircle2,
+  Key,
+  LockKeyhole,
+  Mail,
+  User2,
+} from "lucide-react";
 import { useState } from "react";
-import { SiPinboard } from "react-icons/si";
+import toast from "react-hot-toast";
 import SubmitButton from "@/src/components/auth/SubmitButton";
+import { useRouter } from "next/navigation";
+import { ShowSuccessAlert } from "@/src/functions/ShowSuccessAlert";
 
 // Define schema of the register form
 const schema = z.object({
@@ -32,6 +41,7 @@ const schema = z.object({
 
 type RegisterFormData = z.infer<typeof schema>;
 export default function SignUpPage() {
+  const navigate = useRouter();
   const [submited, setSubmited] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -41,17 +51,20 @@ export default function SignUpPage() {
     register,
     handleSubmit,
     setError,
-    formState: { errors, isSubmitted },
+    formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(schema),
   });
+  const notify = () =>
+    ShowSuccessAlert({ content: "Successfuly registred - Time to sign-in" });
 
   const formSubmit = async (data: RegisterFormData) => {
     if (confirmPassword === password) {
       setSubmited(true);
+      notify();
       setTimeout(() => {
         console.log("Submited!");
-        setSubmited(false);
+        navigate.push("/auth/sign-in");
       }, 3000);
     } else
       setError("confirmPassword", {
