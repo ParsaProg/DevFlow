@@ -6,6 +6,8 @@ import { ThemeProvider } from "next-themes";
 import { Suspense } from "react";
 import "./nprogress.css";
 import Footer from "@/src/components/footer/Footer";
+import DashboardPanelHeader from "@/src/components/dashboard/Header";
+import TabComponent from "@/src/components/dashboard/TabComponent";
 
 export default function ClientLayout({
   children,
@@ -24,6 +26,8 @@ export default function ClientLayout({
           <NavigationProgress />
         </Suspense>
         <Header />
+        <DashboardPanelHeader />
+        <TabComponent />
         <div className="h-25"></div>
         {children}
         <div className="h-12.5"></div>
