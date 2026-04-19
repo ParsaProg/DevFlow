@@ -14,6 +14,8 @@ import AuthPagesDarkSides from "@/src/components/auth/AuthPagesDarkSide";
 import AuthPageInputFields from "@/src/components/auth/InputFields";
 import SubmitButton from "@/src/components/auth/SubmitButton";
 import { useState } from "react";
+import { ShowSuccessAlert } from "@/src/functions/ShowSuccessAlert";
+import { useRouter } from "next/navigation";
 
 // Define the schema for this form!
 const schema = z.object({
@@ -31,6 +33,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function SignInPage() {
+  const navigator = useRouter();
   const [userName, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -38,15 +41,21 @@ export default function SignInPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
+  const notify = () =>
+    ShowSuccessAlert({
+      content: "Successfuly signed-in - route Dashboard",
+      minWidth: "370px",
+    });
   const formSubmit = async (data: FormData) => {
     setSubmited(true);
+    notify();
     setTimeout(() => {
       console.log("Submited!");
-      setSubmited(false);
+      navigator.push("/dashboard");
     }, 3000);
   };
   return (
