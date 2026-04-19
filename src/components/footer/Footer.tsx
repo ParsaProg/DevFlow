@@ -12,7 +12,9 @@ export default function Footer() {
     const pth = pathName.toString().trim();
     const condition1 = "/auth/sign-in";
     const condition2 = "/auth/sign-up";
-    if (pth === condition1 || pth === condition2) setShowFooter(false);
+    const condition3 = "/dashboard";
+    if (pth === condition1 || pth === condition2 || pth === condition3)
+      setShowFooter(false);
     else setShowFooter(true);
   }, [pathName]);
   return (
