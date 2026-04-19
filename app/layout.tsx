@@ -2,8 +2,8 @@ import ClientLayout from "./ClientLayout";
 import type { Metadata } from "next";
 import "./globals.css";
 import "./loader-spinner.css";
-import "./text-shimmer-effects.css";
-import LenisProvider from "@/src/utils/lenis-provider";
+import LenisProvider from "@/src/components/providers/lenis-provider";
+import ToastProvider from "@/src/components/providers/ToaterProvider";
 
 const title: string = "DevFlow | Home";
 const description: string =
@@ -30,7 +30,10 @@ export default function RootLayout({
         className={`inter transition-colors duration-500 bg-background text-for-default antialiased`}
       >
         <ClientLayout>
-          <LenisProvider>{children}</LenisProvider>
+          <LenisProvider>
+            <ToastProvider />
+            {children}
+          </LenisProvider>
         </ClientLayout>
       </body>
     </html>
