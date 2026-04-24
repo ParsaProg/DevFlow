@@ -4,6 +4,10 @@ import "./globals.css";
 import "./loader-spinner.css";
 import LenisProvider from "@/src/components/providers/lenis-provider";
 import ToastProvider from "@/src/components/providers/ToaterProvider";
+import {
+  SidebarContext,
+  SidebarProvider,
+} from "@/src/context/DashBoardTabCollapseContext";
 
 const title: string = "DevFlow | Home";
 const description: string =
@@ -29,12 +33,14 @@ export default function RootLayout({
       <body
         className={`inter transition-colors duration-500 bg-background text-for-default antialiased`}
       >
-        <ClientLayout>
-          <LenisProvider>
-            <ToastProvider />
-            {children}
-          </LenisProvider>
-        </ClientLayout>
+        <SidebarProvider>
+          <ClientLayout>
+            <LenisProvider>
+              <ToastProvider />
+              {children}
+            </LenisProvider>
+          </ClientLayout>
+        </SidebarProvider>
       </body>
     </html>
   );
