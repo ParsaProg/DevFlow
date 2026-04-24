@@ -1,8 +1,42 @@
 "use client";
 
+import { useReducer } from "react";
 import { motion } from "framer-motion";
+interface NotificationState {
+  issueAssigned: boolean;
+  comments: boolean;
+  projectUpdates: boolean;
+  weeklyDigest: boolean;
+}
+const initialState: NotificationState = {
+  issueAssigned: true,
+  comments: true,
+  projectUpdates: true,
+  weeklyDigest: true,
+};
 
+type NotificationAction =
+  | { type: "TOGGLE_ISSUE_ASSIGNED" }
+  | { type: "TOGGLE_COMMENTS" }
+  | { type: "TOGGLE_PROJECT_UPDATES" }
+  | { type: "TOGGLE_WEEKLY_DIGEST" };
 export function DashboardSettingsNotification() {
+  function notificationReducer(
+    state: NotificationState,
+    action: NotificationAction,
+  ): NotificationState {
+    switch (action.type) {
+      case "TOGGLE_ISSUE_ASSIGNED":
+        return { ...state, issueAssigned: !state.issueAssigned };
+      case "TOGGLE_COMMENTS":
+        return { ...state, comments: !state.comments };
+      case "TOGGLE_PROJECT_UPDATES":
+        return { ...state, projectUpdates: !state.projectUpdates };
+      case "TOGGLE_WEEKLY_DIGEST":
+        return { ...state, weeklyDigest: !state.weeklyDigest };
+    }
+  }
+  const [state, dispatch] = useReducer(notificationReducer, initialState);
   return (
     <motion.div
       key="notifications"
@@ -30,11 +64,14 @@ export function DashboardSettingsNotification() {
             </span>
           </div>
           <div
-            className={`cursor-pointer relative rounded-full h-7 w-13 ${"bg-blue-500"}`}
+            onClick={() => dispatch({ type: "TOGGLE_ISSUE_ASSIGNED" })}
+            className={`cursor-pointer relative rounded-full h-7 w-13 ${state.issueAssigned ? "bg-blue-500" : "bg-gray-900"} transition-colors duration-300`}
           >
-            <div
-              className={`absolute rounded-full bg-white w-6 h-6 right-0.5 top-[50%] translate-y-[-50%]`}
-            ></div>
+            <motion.div
+              className="absolute rounded-full bg-white w-6 h-6 top-[50%] translate-y-[-50%]"
+              animate={{ x: state.issueAssigned ? 26 : 2 }}
+              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            />
           </div>
         </div>
         <span className="w-full h-px rounded-full bg-gray-800"></span>
@@ -48,11 +85,14 @@ export function DashboardSettingsNotification() {
             </span>
           </div>
           <div
-            className={`cursor-pointer relative rounded-full h-7 w-13 ${"bg-blue-500"}`}
+            onClick={() => dispatch({ type: "TOGGLE_COMMENTS" })}
+            className={`cursor-pointer relative rounded-full h-7 w-13 ${state.comments ? "bg-blue-500" : "bg-gray-900"} transition-colors duration-300`}
           >
-            <div
-              className={`absolute rounded-full bg-white w-6 h-6 ${"right-0.5"} top-[50%] translate-y-[-50%]`}
-            ></div>
+            <motion.div
+              className="absolute rounded-full bg-white w-6 h-6 top-[50%] translate-y-[-50%]"
+              animate={{ x: state.comments ? 26 : 2 }}
+              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            />
           </div>
         </div>
         <span className="w-full h-px rounded-full bg-gray-800"></span>
@@ -66,11 +106,14 @@ export function DashboardSettingsNotification() {
             </span>
           </div>
           <div
-            className={`cursor-pointer relative rounded-full h-7 w-13 ${"bg-blue-500"}`}
+            onClick={() => dispatch({ type: "TOGGLE_PROJECT_UPDATES" })}
+            className={`cursor-pointer relative rounded-full h-7 w-13 ${state.projectUpdates ? "bg-blue-500" : "bg-gray-900"} transition-colors duration-300`}
           >
-            <div
-              className={`absolute rounded-full bg-white w-6 h-6 ${"right-0.5"} top-[50%] translate-y-[-50%]`}
-            ></div>
+            <motion.div
+              className="absolute rounded-full bg-white w-6 h-6 top-[50%] translate-y-[-50%]"
+              animate={{ x: state.projectUpdates ? 26 : 2 }}
+              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            />
           </div>
         </div>
         <span className="w-full h-px rounded-full bg-gray-800"></span>
@@ -84,11 +127,14 @@ export function DashboardSettingsNotification() {
             </span>
           </div>
           <div
-            className={`cursor-pointer relative rounded-full h-7 w-13 ${"bg-blue-500"}`}
+            onClick={() => dispatch({ type: "TOGGLE_WEEKLY_DIGEST" })}
+            className={`cursor-pointer relative rounded-full h-7 w-13 ${state.weeklyDigest ? "bg-blue-500" : "bg-gray-900"} transition-colors duration-300`}
           >
-            <div
-              className={`absolute rounded-full bg-white w-6 h-6 ${"right-0.5"} top-[50%] translate-y-[-50%]`}
-            ></div>
+            <motion.div
+              className="absolute rounded-full bg-white w-6 h-6 top-[50%] translate-y-[-50%]"
+              animate={{ x: state.weeklyDigest ? 26 : 2 }}
+              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            />
           </div>
         </div>
       </div>
