@@ -1,4 +1,8 @@
+"use client";
+
 import DashboardContainer from "@/src/components/ui/Dashboard-Containers";
+import Greeting from "@/src/components/ui/Greeting";
+import { useSidebar } from "@/src/context/DashBoardTabCollapseContext";
 import { DashboardAssignToMeData } from "@/src/data/dashboard-me-assign-section";
 import { DashboardRecentActivityData } from "@/src/data/dashboard-recent-activity";
 import {
@@ -8,17 +12,19 @@ import {
   Clock,
   FolderCodeIcon,
   GitBranch,
-  MessageCircleCheck,
   MessageCircleDashed,
   User,
 } from "lucide-react";
 
 const DashboardPage = () => {
+  const { isCollapsed } = useSidebar();
   return (
     <div className="z-10 absolute top-0 bg-[#05070B] w-full h-screen">
-      <div className="mt-24 ml-60 px-50 flex flex-col mx-auto gap-y-5">
+      <div
+        className={`transition-all duration-300 mt-24 ${isCollapsed ? "ml-15" : "ml-60"} px-[12vw] flex flex-col mx-auto gap-y-5`}
+      >
         <section>
-          <h1 className="text-white font-bold text-2xl">Good morning, Parsa</h1>
+          <Greeting name={"Parsa"} />
           <h3 className="text-gray-500 font-thin text-[17px] mt-1">
             Here is what is happening across your projects today.
           </h3>
@@ -46,7 +52,7 @@ const DashboardPage = () => {
             subTitle={"Completed Tasks"}
           />
         </section>
-        <section className="flex gap-x-5 w-full mt-3">
+        <section className="flex gap-x-5 w-full">
           <div className="w-[60%] rounded-2xl p-5 bg-[#0C1015] border dark:border-neutral-800 flex flex-col items-start gap-y-3">
             <h1 className="text-[15.5px] font-semibold">Recent Activity</h1>
             <div className="mt-3 flex flex-col items-start w-full gap-y-1">
