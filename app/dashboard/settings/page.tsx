@@ -6,6 +6,9 @@ import { useSidebar } from "@/src/context/DashBoardTabCollapseContext";
 import { DashboardSettingsTabs } from "@/src/data/dashboard-settings.tabs";
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import DashboardSettingsSecurityContainer from "@/src/components/settings/DashboardSettingsSecurityContainer";
+import DashboardSettingsAppearance from "@/src/components/settings/DashboardSettingsAppearance";
 
 const DashboardPage = () => {
   const [tabIndex, setTabIndex] = useState<number>(0);
@@ -25,20 +28,27 @@ const DashboardPage = () => {
           <div className="flex flex-col items-start gap-y-1 w-[20%]">
             {DashboardSettingsTabs.map((dst, _i) => {
               return (
-                <div
-                  onClick={() => setTabIndex(_i)}
+                <motion.div
                   key={_i}
-                  className={`${tabIndex === _i ? "bg-gray-900 text-white" : "text-gray-400"} w-full hover:bg-gray-900 select-none transition-all duration-200 flex items-center gap-x-2 rounded-xl px-3 py-2 text-sm`}
+                  className="w-full rounded-xl"
+                  whileTap={{ scale: 0.98 }}
                 >
-                  {dst.icon}
-                  {dst.title}
-                </div>
+                  <div
+                    onClick={() => setTabIndex(_i)}
+                    className={`${tabIndex === _i ? "bg-[#1C222B] text-white" : "text-gray-400"} w-full hover:bg-[#1C222B] select-none transition-all duration-200 flex items-center gap-x-2 rounded-xl px-3 py-3 text-sm`}
+                  >
+                    {dst.icon}
+                    {dst.title}
+                  </div>
+                </motion.div>
               );
             })}
           </div>
           <AnimatePresence mode="wait">
             {tabIndex === 0 && <DashboardSettingsProfileForm />}
             {tabIndex === 1 && <DashboardSettingsNotification />}
+            {tabIndex === 2 && <DashboardSettingsSecurityContainer />}
+            {tabIndex === 3 && <DashboardSettingsAppearance />}
           </AnimatePresence>
         </div>
       </div>
