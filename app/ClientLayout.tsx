@@ -8,12 +8,15 @@ import "./nprogress.css";
 import Footer from "@/src/components/footer/Footer";
 import DashboardPanelHeader from "@/src/components/dashboard/Header";
 import TabComponent from "@/src/components/dashboard/TabComponent";
+import { useSidebar } from "@/src/context/DashBoardTabCollapseContext";
 
 export default function ClientLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { toggle, isCollapsed } = useSidebar();
+
   return (
     <div>
       <ThemeProvider
@@ -26,8 +29,8 @@ export default function ClientLayout({
           <NavigationProgress />
         </Suspense>
         <Header />
-        <DashboardPanelHeader />
-        <TabComponent />
+        <DashboardPanelHeader collapse={isCollapsed} />
+        <TabComponent collapse={isCollapsed} setCollapse={toggle} />
         <div className="h-25"></div>
         {children}
         <div className="h-12.5"></div>
