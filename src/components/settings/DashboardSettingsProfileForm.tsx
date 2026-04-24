@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import DashboardSettingsProfileInputs from "./DashboardSettingsProfileInputForm";
 
 export default function DashboardSettingsProfileForm() {
+  
   return (
     <motion.div
       key={"profile"}
@@ -52,6 +53,11 @@ export default function DashboardSettingsProfileForm() {
           <span>Role</span>
           <DashboardSettingsProfileInputs value="Senior Developer" />
         </div>
+        <motion.div whileTap={{ scale: 0.95 }} className="rounded-xl self-end">
+          <button className="transition-all duration-200 bg-primary rounded-xl text-white text-sm flex items-center justfi-center text-center py-3 px-5 font-semibold mt-3 shadow-lg shadow-neutral-900 hover:-translate-y-1 hover:shadow-primary/30">
+            Save Changes
+          </button>
+        </motion.div>
       </form>
     </motion.div>
   );
