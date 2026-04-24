@@ -2,7 +2,6 @@ import { ArrowRight } from "lucide-react";
 import HeroSectionContainer from "./HeroSection-Container";
 import { HeroGeometric } from "@/src/components/ui/shape-landing-hero";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 
 const HeroSection = () => {
   const developersList = [
@@ -62,7 +61,7 @@ const HeroSection = () => {
               x: 0,
             }}
             viewport={{ once: true }}
-            className="rounded-full dark:bg-[#0f121a] bg-[#F1F3F7] border dark:border-neutral-700 border-neutral-700 text-neutral-600 dark:text-neutral-400 flex items-center py-2 px-4 gap-x-2 text-xs"
+            className="rounded-full dark:bg-[#0f121a] bg-[#F1F3F7] border dark:border-neutral-800 border-neutral-700 text-neutral-600 dark:text-neutral-400 flex items-center py-2 px-4 gap-x-2 text-xs"
           >
             <div className="relative">
               <div className="rounded-full bg-[#00A9B3] w-2 h-2">
