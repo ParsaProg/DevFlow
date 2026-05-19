@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "@/src/styles/inputs/dashboard.css";
 
 export default function DashboardSettingsProfileInputs({
   value,
@@ -18,7 +19,7 @@ export default function DashboardSettingsProfileInputs({
     <input
       value={inputValue}
       onChange={handleChange}
-      className="w-full dark:bg-[#05070B] border dark:border-neutral-800 rounded-2xl py-3 text-sm px-4 outline-none transition-all duration-200 ring-2 ring-transparent focus-within:ring-primary"
+      className="dashboard-input w-full dark:bg-[#05070B] border dark:border-neutral-800 rounded-2xl py-3 text-sm px-4 outline-none transition-all duration-200 ring-2 ring-transparent focus-within:ring-primary"
     />
   );
 }
