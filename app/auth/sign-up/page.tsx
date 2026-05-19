@@ -24,9 +24,13 @@ import { ShowSuccessAlert } from "@/src/functions/ShowSuccessAlert";
 
 // Define schema of the register form
 const schema = z.object({
-  userName: z
+  firstName: z
     .string()
-    .min(2, "The username must be at least 2 characters")
+    .min(2, "The first-name must be at least 2 characters")
+    .max(20, "The username must be at last 20 characters"),
+  lastName: z
+    .string()
+    .min(2, "The last-name must be at least 2 characters")
     .max(20, "The username must be at last 20 characters"),
   email: z.string().email("Invalid email adress"),
   password: z
@@ -43,10 +47,6 @@ type RegisterFormData = z.infer<typeof schema>;
 export default function SignUpPage() {
   const navigate = useRouter();
   const [submited, setSubmited] = useState<boolean>(false);
-  const [userName, setUserName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const {
     register,
     handleSubmit,
@@ -59,18 +59,43 @@ export default function SignUpPage() {
     ShowSuccessAlert({ content: "Successfuly registred - Time to sign-in" });
 
   const formSubmit = async (data: RegisterFormData) => {
-    if (confirmPassword === password) {
-      setSubmited(true);
-      notify();
-      setTimeout(() => {
-        console.log("Submited!");
-        navigate.push("/auth/sign-in");
-      }, 3000);
-    } else
+    if (data.password !== data.confirmPassword) {
       setError("confirmPassword", {
         type: "manual",
-        message: "The confirm password is innocorrect",
+        message: "The confirm password is inocorrect",
       });
+      return;
+    }
+
+    try {
+      setSubmited(true);
+      const response = await fetch("http://localhost:5500/api/v1/auth/sign-up", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          password: data.password,
+        }),
+      });
+      const result = await response.json();
+
+      if (!response.ok) {
+        toast.error(result.message);
+        setSubmited(false);
+        return;
+      }
+
+      notify();
+      setTimeout(() => {
+        navigate.push("/auth/sign-in");
+      }, 3000);
+    } catch (error) {
+      console.error("Sign-up error:", error);
+    }
   };
   return (
     <div className="w-full h-screen bg-white top-0 absolute flex items-center">
@@ -123,23 +148,38 @@ export default function SignUpPage() {
             }}
             className="h-[0.3px] w-full bg-neutral-200"
           />
+          <div className="w-full flex items-center gap-x-5">
+            <AuthPageInputFields
+              errors={errors}
+              register={register}
+              formAuthInput="firstName"
+              type="text"
+              placeHolder="Enter firstname..."
+              fieldTitle="First Name"
+              mainIcon={
+                <User2
+                  size={20}
+                  className="text-neutral-600 absolute left-3 top-[50%] translate-y-[-50%]"
+                />
+              }
+            />
+            <AuthPageInputFields
+              errors={errors}
+              register={register}
+              formAuthInput="lastName"
+              type="text"
+              placeHolder="Enter lastname..."
+              fieldTitle="Last Name"
+              mainIcon={
+                <User2
+                  size={20}
+                  className="text-neutral-600 absolute left-3 top-[50%] translate-y-[-50%]"
+                />
+              }
+            />
+          </div>
+
           <AuthPageInputFields
-            setContent={setUserName}
-            formAuthInput="userName"
-            register={register}
-            errors={errors}
-            type="text"
-            placeHolder="Enter Username..."
-            fieldTitle="Username"
-            mainIcon={
-              <User2
-                size={20}
-                className="text-neutral-600 absolute left-3 top-[50%] translate-y-[-50%]"
-              />
-            }
-          />
-          <AuthPageInputFields
-            setContent={setEmail}
             formAuthInput="email"
             register={register}
             errors={errors}
@@ -154,7 +194,6 @@ export default function SignUpPage() {
             }
           />
           <AuthPageInputFields
-            setContent={setPassword}
             formAuthInput="password"
             register={register}
             errors={errors}
@@ -169,7 +208,6 @@ export default function SignUpPage() {
             }
           />
           <AuthPageInputFields
-            setContent={setConfirmPassword}
             formAuthInput="confirmPassword"
             register={register}
             errors={errors}
