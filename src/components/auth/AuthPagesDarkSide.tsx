@@ -14,7 +14,7 @@ type LeftSideSubtitleType = {
 export default function AuthPagesDarkSides({ type }: LeftSideSubtitleType) {
   const navigate = useRouter();
   return (
-    <section className="flex flex-col justify-center w-[50%] h-screen bg-[#0A0A0A] relative overflow-hidden">
+    <section className="text-white flex flex-col justify-center w-[50%] h-screen bg-[#0A0A0A] relative overflow-hidden">
       <motion.div
         transition={{ delay: 1, duration: 1, ease: "backInOut" }}
         initial="hidden"
@@ -67,7 +67,7 @@ export default function AuthPagesDarkSides({ type }: LeftSideSubtitleType) {
               navigate.push("/");
             }}
             whileTap={{ scale: 0.95 }}
-            className="select-none group z-9999 absolute cursor-pointer text-sm font-thin rounded-full bg-[#1a1b1db2] px-4 py-2 flex items-center gap-x-2 border border-neutral-700 mb-5 mt-5 overflow-hidden"
+            className="text-white select-none group z-9999 absolute cursor-pointer text-sm font-thin rounded-full bg-[#1a1b1db2] px-4 py-2 flex items-center gap-x-2 border border-neutral-700 mb-5 mt-5 overflow-hidden"
           >
             <HomeIcon size={18} />
             Back to Home
@@ -85,7 +85,7 @@ export default function AuthPagesDarkSides({ type }: LeftSideSubtitleType) {
             hidden: { opacity: 0, x: -100 },
             visible: { opacity: 1, x: 0 },
           }}
-          className="mt-20 font-semibold text-5xl"
+          className="mt-20 font-semibold text-5xl text-white"
         >
           Welcome back.
         </motion.h1>
