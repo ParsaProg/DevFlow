@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import ThemeToggleButton from "../ui/ThemeToggleButton";
 import { usePortal } from "@/src/context/DashboardSearchPortalShowedContext";
 import DashboardSearchPortal from "../portals/DashboardSearchPortal";
+import CheckUserLoggedIn from "@/src/functions/CheckUserLoggedIn";
 
 export default function DashboardPanelHeader({
   collapse,
@@ -30,8 +31,13 @@ export default function DashboardPanelHeader({
   }, [isShowMenu]);
 
   useEffect(() => {
-    const pth = pathName.toString().trim();
-    if (pth === "/dashboard" || pth.includes("/dashboard/")) setMount(true);
+    const loggedIn = CheckUserLoggedIn({ fromAuthPage: false });
+    loggedIn.then((res) => {
+      const pth = pathName.toString().trim();
+      if ((pth === "/dashboard" || pth.includes("/dashboard/")) && res)
+        setMount(true);
+      else setMount(false);
+    });
   }, [pathName]);
 
   if (!mount) return null;
