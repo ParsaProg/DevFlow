@@ -6,5 +6,5 @@ export interface InputFieldInterface {
   formAuthInput: string;
   register: any;
   errors: any;
-  setContent: (val: string) => void;
+  setContent?: (val: string) => void;
 }
