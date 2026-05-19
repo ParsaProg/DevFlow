@@ -2,6 +2,7 @@ import { InputFieldInterface } from "@/src/interfaces/input-fields";
 import { AnimatePresence, motion } from "framer-motion";
 import { Eye } from "lucide-react";
 import { useState } from "react";
+import "@/src/styles/inputs/auth.css";
 
 export default function AuthPageInputFields({
   fieldTitle,
@@ -14,12 +15,12 @@ export default function AuthPageInputFields({
   setContent,
 }: InputFieldInterface) {
   const [mainType, setMainType] = useState<string>(type);
-  
+
   // Get the register props separately
   const { onChange, onBlur, name, ref } = register(formAuthInput);
-  
+
   return (
-    <div className={`${errors[formAuthInput] && "mb-3"}`}>
+    <div className={`${errors[formAuthInput] && "mb-3"} w-full`}>
       <motion.h1
         transition={{ delay: 1, ease: "anticipate", duration: 2 }}
         initial="hidden"
@@ -52,7 +53,7 @@ export default function AuthPageInputFields({
               setContent(e.target.value);
             }
           }}
-          className={`text-[15px] placeholder:font-medium placeholder:text-neutral-600 px-10 py-4 outline-none rounded-xl transition-all font-thin duration-200 ring-offset-0 ring-white ${errors[formAuthInput] ? "border-red-400 border-2 focus-within:ring-red-400/50 focus-within:ring-offset-0 ring-2" : "border-neutral-300 border focus-within:ring-primary focus-within:ring-offset-2 ring-2"} w-full`}
+          className={`font-thin auth-input text-[15px] placeholder:text-neutral-700 px-10 py-4 outline-none rounded-xl transition-all duration-200 ring-offset-0 ring-white ${errors[formAuthInput] ? "border-red-400 border-2 focus-within:ring-red-400/50 focus-within:ring-offset-0 ring-2" : "border-neutral-300 border focus-within:ring-primary focus-within:ring-offset-2 ring-2"} w-full`}
           type={mainType}
           autoComplete="off"
           placeholder={placeHolder}
@@ -76,7 +77,7 @@ export default function AuthPageInputFields({
           >
             <Eye
               size={23}
-              className="cursor-pointer text-neutral-600 absolute right-3 top-[50%] translate-y-[-50%]"
+              className="cursor-pointer text-neutral-700 absolute right-3 top-[50%] translate-y-[-50%]"
             />
           </div>
         )}
