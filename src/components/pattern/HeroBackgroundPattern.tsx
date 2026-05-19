@@ -67,7 +67,7 @@ const BGPattern = ({
   if (!mounted) return null;
 
   // Use resolvedTheme to get actual theme value
-  const currentTheme = resolvedTheme || theme || "dark";
+  const currentTheme = "dark";
   
   // Improved colors for better visibility
   const fill = currentTheme === "dark" 
