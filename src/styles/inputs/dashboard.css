@@ -1,0 +1,16 @@
+.dashboard-input:-webkit-autofill,
+.dashboard-input:-webkit-autofill:hover,
+.dashboard-input:-webkit-autofill:focus,
+.dashboard-input:-webkit-autofill:active {
+  /* The inset box-shadow is the ONLY reliable way to override autofill bg color */
+  -webkit-box-shadow: 0 0 0px 1000px #0f141d inset !important;
+  box-shadow: 0 0 0px 1000px #0f141d inset !important;
+
+  /* Text color for good contrast on white */
+  -webkit-text-fill-color: white !important;
+
+  /* Prevents flash of browser's yellow/blue autofill color */
+  transition:
+    background-color 9999s ease-in-out 0s,
+    box-shadow 9999s ease-in-out 0s;
+}
