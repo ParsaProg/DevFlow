@@ -1,11 +1,14 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import DevFlowLogo from "@/app/assets/pictures/devflow.png";
+import { cn } from "@/lib/utils";
 
 export default function AuthPagesBrandShows({
   showTitle = true,
+  theme,
 }: {
   showTitle?: boolean;
+  theme?: "dark" | "light";
 }) {
   return (
     <motion.div
@@ -16,7 +19,7 @@ export default function AuthPagesBrandShows({
         hidden: { opacity: 0, x: -100 },
         visible: { opacity: 1, x: 0 },
       }}
-      className="flex items-center gap-x-2 text-xl w-10 h-10"
+      className={cn("flex items-center gap-x-2 text-xl w-10 h-10", theme === "dark"? "text-black":"text-white")}
     >
       <Image
         alt="DevFlow-Logo"
