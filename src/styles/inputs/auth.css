@@ -1,0 +1,17 @@
+.auth-input:-webkit-autofill,
+.auth-input:-webkit-autofill:hover,
+.auth-input:-webkit-autofill:focus,
+.auth-input:-webkit-autofill:active {
+  /* The inset box-shadow is the ONLY reliable way to override autofill bg color */
+  -webkit-box-shadow: 0 0 0px 1000px rgba(90, 123, 244, 0.124) inset !important;
+  box-shadow: 0 0 0px 1000px rgba(90, 123, 244, 0.124) inset !important;
+
+  /* Text color for good contrast on white */
+  -webkit-text-fill-color: #1a1a2e !important;
+  caret-color: #1a1a2e;
+
+  /* Prevents flash of browser's yellow/blue autofill color */
+  transition:
+    background-color 9999s ease-in-out 0s,
+    box-shadow 9999s ease-in-out 0s;
+}
