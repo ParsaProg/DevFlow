@@ -8,6 +8,7 @@ import { DashboardTabList } from "@/src/data/dashboard-tab-component-list";
 import Link from "next/link";
 import { ChevronsLeft } from "lucide-react";
 import { TabComponentInterface } from "@/src/interfaces/tab-component-interface";
+import CheckUserLoggedIn from "@/src/functions/CheckUserLoggedIn";
 
 export default function TabComponent({
   collapse,
@@ -19,8 +20,13 @@ export default function TabComponent({
   const pathName = usePathname();
   const [mount, setMount] = useState<boolean | null>(null);
   useEffect(() => {
-    const pth = pathName.toString().trim();
-    if (pth === "/dashboard" || pth.includes("/dashboard/")) setMount(true);
+    const loggedIn = CheckUserLoggedIn({ fromAuthPage: false });
+    loggedIn.then((res) => {
+      const pth = pathName.toString().trim();
+      if ((pth === "/dashboard" || pth.includes("/dashboard/")) && res)
+        setMount(true);
+      else setMount(false);
+    });
   }, [pathName]);
 
   if (!mount) return null;
