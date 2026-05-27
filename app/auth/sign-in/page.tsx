@@ -16,24 +16,25 @@ import SubmitButton from "@/src/components/auth/SubmitButton";
 import { useEffect, useState } from "react";
 import { ShowSuccessAlert } from "@/src/functions/ShowSuccessAlert";
 import { useRouter } from "next/navigation";
-import CheckUserLoggedIn from "@/src/functions/CheckUserLoggedIn";
+import { useAuth } from "@/src/providers/AuthProvider"; 
+import { BACKEND_BASE_URL } from "@/src/constants/backendBaseUrl";
 
-// Define the schema for this form!
 const schema = z.object({
-  email: z.string().email("Invalid email adress"),
+  email: z.string().email("Invalid email address"),
   password: z
     .string()
-    .min(6, "The password must be at leat 6 charcater")
-    .max(20, "The password must be at last 20 charcater"),
+    .min(6, "The password must be at least 6 characters")
+    .max(20, "The password must be at most 20 characters"),
 });
 
 type FormData = z.infer<typeof schema>;
 
 export default function SignInPage() {
-  const [userLoggedIn, setUserLoggedIn] = useState(true);
+  const { accessToken, user, loading, setAuth } = useAuth();
   const navigator = useRouter();
-
   const [submited, setSubmited] = useState<boolean>(false);
+  const [checkingInitialAuth, setCheckingInitialAuth] = useState<boolean>(true);
+
   const {
     register,
     handleSubmit,
@@ -41,59 +42,74 @@ export default function SignInPage() {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
+
+  // ⚡ THE REDIRECT FIX: 
+  // Wait until context firmly registers BOTH accessToken AND user data, then push safely!
+  useEffect(() => {
+    if (!loading && accessToken && user) {
+      navigator.push("/dashboard");
+    } else if (!loading && !accessToken) {
+      setCheckingInitialAuth(false);
+    }
+  }, [accessToken, user, loading, navigator]);
+
   const notify = () =>
     ShowSuccessAlert({
-      content: "Successfuly signed-in",
+      content: "Successfully logged-in - Redirecting...",
       minWidth: "370px",
     });
+
   const formSubmit = async (data: FormData) => {
     try {
       setSubmited(true);
-      const response = await fetch(
-        "http://localhost:5500/api/v1/auth/sign-in",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({
-            email: data.email,
-            password: data.password,
-          }),
-        },
-      );
+      const response = await fetch(`${BACKEND_BASE_URL}/api/v1/auth/sign-in`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      });
+
       const result = await response.json();
+
       if (!response.ok) {
         setSubmited(false);
-        toast.error(result.message);
-        return null;
+        toast.error(result.message || "Invalid credentials");
+        return;
       }
-      localStorage.setItem("accessToken", result["accessToken"]);
+
+      // Show alert first
       notify();
-      setTimeout(() => {
-        navigator.push("/dashboard");
-      }, 3000);
+
+      // Set auth context globally. The layout will detect this instantly 
+      // and trigger our safe redirect hook above.
+      setAuth(result.accessToken, result.user);
+
     } catch (error: unknown) {
-      console.error("Sing-in error", error);
+      console.error("Sign-in error", error);
+      toast.error("Something went wrong. Please try again.");
       setSubmited(false);
     }
   };
 
-  useEffect(() => {
-    const loggedIn = CheckUserLoggedIn({ fromAuthPage: true });
-    loggedIn.then((res) => {
-      if (res)
-        navigator.push("/dashboard"); // redirect if logged in
-      else setUserLoggedIn(false);
-    });
-  }, []);
+  if (loading || checkingInitialAuth) {
+    return (
+      <div className="h-screen w-screen bg-[#05070B] flex items-center justify-center text-white">
+        Verifying Session...
+      </div>
+    );
+  }
+
   return (
-    !userLoggedIn && (
+    !accessToken && (
       <div className="w-full h-screen bg-white top-0 absolute flex items-center">
         <AuthPagesDarkSides type="sign-in" />
         <form
           autoComplete="off"
           onSubmit={handleSubmit(formSubmit)}
-          className="w-[50%] h-screen justify-center flex flex-col  bg-[#fdfdfd] relative overflow-hidden text-whiteitems-start"
+          className="w-[50%] h-screen justify-center flex flex-col bg-[#fdfdfd] relative overflow-hidden text-white items-start"
         >
           <div className="justify-center flex flex-col gap-y-5 w-full px-20 mx-auto text-black text-xl font-semibold">
             <div>
@@ -125,10 +141,11 @@ export default function SignInPage() {
                   onClick={() => NProgress.start()}
                   href={"/auth/sign-up"}
                 >
-                  Creare one
+                  Create one
                 </Link>
               </motion.div>
             </div>
+            
             <section className="my-3 select-none w-full flex items-center gap-x-5">
               <motion.div
                 className="w-full"
@@ -160,13 +177,14 @@ export default function SignInPage() {
               >
                 <motion.div
                   whileTap={{ scale: 0.95 }}
-                  className="select-none cursor-pointer flex items-center  cursor-pointer text-black/80 rounded-full text-center justify-center w-full px-1 py-4 border border-neutral-300 gap-x-2 text-[17px] font-semibold"
+                  className="select-none cursor-pointer flex items-center text-black/80 rounded-full text-center justify-center w-full px-1 py-4 border border-neutral-300 gap-x-2 text-[17px] font-semibold"
                 >
                   <FaGithub size={25} />
                   GitHub
                 </motion.div>
               </motion.div>
             </section>
+
             <motion.section
               transition={{ delay: 1.5 }}
               initial="hidden"
@@ -178,9 +196,7 @@ export default function SignInPage() {
               className="text-xs font-thin shrink-0 text-neutral-600 flex items-center gap-x-2"
             >
               <span className="h-[0.3px] w-full bg-neutral-200" />
-              <span className="whitespace-nowrap">
-                OR CONTINUE WITH EMAIL/USERNAME
-              </span>
+              <span className="whitespace-nowrap">OR CONTINUE WITH EMAIL/USERNAME</span>
               <span className="h-[0.3px] w-full bg-neutral-200" />
             </motion.section>
 
@@ -212,6 +228,7 @@ export default function SignInPage() {
                 />
               }
             />
+
             <motion.div
               transition={{ delay: 2.2, ease: "anticipate" }}
               initial="hidden"
@@ -226,25 +243,6 @@ export default function SignInPage() {
             </motion.div>
 
             <SubmitButton submited={submited} buttonContentText="Sign in" />
-            <motion.p
-              transition={{ delay: 2, ease: "anticipate", duration: 1.5 }}
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: { opacity: 0, x: -100 },
-                visible: { opacity: 1, x: 0 },
-              }}
-              className="absolute bottom-4 text-xs font-thin text-neutral-800"
-            >
-              By signing in, you agree the our{" "}
-              <a href={"/tpp"} className="underline underline-offset-2">
-                Terms
-              </a>
-              <span className="mx-1">and</span>
-              <a href={"/tpp"} className="underline underline-offset-2">
-                Privacy Policy
-              </a>
-            </motion.p>
           </div>
         </form>
       </div>
