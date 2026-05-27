@@ -10,22 +10,10 @@ import CheckUserLoggedIn from "@/src/functions/CheckUserLoggedIn";
 import toast from "react-hot-toast";
 
 const DashboardPage = () => {
-  const navigator = useRouter();
-  const [mount, setMount] = useState<boolean>(false);
-  useEffect(() => {
-    const loggedIn = CheckUserLoggedIn({ fromAuthPage: false });
-    loggedIn.then((res) => {
-      if (res)
-        setMount(true); // redirect if logged in
-      else {
-        toast.error("You are not logged in");
-        navigator.push("/auth/sign-in");
-      }
-    });
-  }, []);
+  
   const { isCollapsed } = useSidebar();
   return (
-    mount && (
+    (
       <div className="z-10 absolute top-0 bg-[#05070B] w-full h-screen">
         <div
           className={`transition-all duration-300 mt-24 ${isCollapsed ? "ml-15" : "ml-60"} px-[12vw] flex flex-col mx-auto gap-y-5`}
