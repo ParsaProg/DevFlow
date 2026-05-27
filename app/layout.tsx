@@ -2,10 +2,11 @@ import ClientLayout from "./ClientLayout";
 import type { Metadata } from "next";
 import "./globals.css";
 import "./loader-spinner.css";
-import LenisProvider from "@/src/components/providers/lenis-provider";
-import ToastProvider from "@/src/components/providers/ToaterProvider";
+import LenisProvider from "@/src/providers/lenis-provider";
+import ToastProvider from "@/src/providers/ToaterProvider";
 import { SidebarProvider } from "@/src/context/DashBoardTabCollapseContext";
 import { PortalProvider } from "@/src/context/DashboardSearchPortalShowedContext";
+import { AuthProvider } from "@/src/providers/AuthProvider";
 
 const title: string = "DevFlow | Home";
 const description: string =
@@ -36,11 +37,11 @@ export default function RootLayout({
             <ClientLayout>
               <LenisProvider>
                 <ToastProvider />
-                {children}
+                <AuthProvider>{children}</AuthProvider>
               </LenisProvider>
             </ClientLayout>
           </SidebarProvider>
-         </PortalProvider>
+        </PortalProvider>
       </body>
     </html>
   );
