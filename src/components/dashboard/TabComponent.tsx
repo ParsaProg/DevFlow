@@ -55,7 +55,7 @@ export default function TabComponent({
                     ? "/dashboard"
                     : `/dashboard/${val.title.toString().toLowerCase()}`
               }
-              className={`${pathName === "/dashboard" ? pathName === `/${val.title.toLowerCase()}` && "bg-gray-900 text-primary" : pathName === `/dashboard/${val.title.toLowerCase()}` ? "bg-gray-900 text-primary" : ""} ${collapse ? "p-2.25" : "px-3 py-2"} text-[14.5px] text-gray-400 gap-x-2 relative rounded-xl w-full flex items-center transition-all duration-200 hover:bg-gray-900`}
+              className={`${pathName === "/dashboard" ? pathName === `/${val.title.toLowerCase()}` && "bg-gray-900 text-primary" : pathName === `/dashboard/${val.title.toLowerCase()}` ? "bg-gray-900 text-primary" :  pathName === `/dashboard/${val.title.toLowerCase()}/${pathName.split("/")[3]}` ? "bg-gray-900 text-primary" : ""} ${collapse ? "p-2.25" : "px-3 py-2"} text-[14.5px] text-gray-400 gap-x-2 relative rounded-xl w-full flex items-center transition-all duration-200 hover:bg-gray-900`}
             >
               {val.icon}
               <AnimatePresence>
