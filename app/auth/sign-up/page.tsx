@@ -21,6 +21,7 @@ import toast from "react-hot-toast";
 import SubmitButton from "@/src/components/auth/SubmitButton";
 import { useRouter } from "next/navigation";
 import { ShowSuccessAlert } from "@/src/functions/ShowSuccessAlert";
+import { BACKEND_BASE_URL } from "@/src/constants/backendBaseUrl";
 
 // Define schema of the register form
 const schema = z.object({
@@ -69,7 +70,7 @@ export default function SignUpPage() {
 
     try {
       setSubmited(true);
-      const response = await fetch("http://localhost:5500/api/v1/auth/sign-up", {
+      const response = await fetch(`${BACKEND_BASE_URL}/api/v1/auth/sign-up`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
