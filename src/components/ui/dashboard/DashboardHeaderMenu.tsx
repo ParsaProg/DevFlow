@@ -50,10 +50,10 @@ export default function DashboardHeaderMenu({
   return (
     <motion.div
       ref={menuRef}
-      variants={{ menuVariants }}
+      variants={menuVariants}
       initial="hidden"
       animate="visible"
-      exit="exit" // 👈 Explicitly linked to the exit variant map above
+      exit="exit"
       className="w-64 h-auto rounded-xl absolute top-12 right-0 bg-[#0C1015]/95 backdrop-blur-md border border-neutral-800 shadow-2xl flex flex-col items-start gap-y-2.5 px-3.5 pt-4 pb-2.5 text-[13px] select-none z-50 origin-top-right"
     >
       <div className="px-1.5 pb-0.5">
