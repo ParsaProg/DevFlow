@@ -3,12 +3,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useSidebar } from "@/src/context/DashBoardTabCollapseContext";
 import { Plus } from "lucide-react";
 import { ProjectsModelData } from "@/src/models/projects";
-import ProjectsContainer from "@/src/components/ui/projects/ProjectsContainer";
-import { useRouter } from "next/navigation";
+import ProjectsContainer from "@/src/components/ui/dashboard/projects/ProjectsContainer";
+import CreateProjectPortal from "@/src/components/ui/dashboard/projects/CreateProjectPortal";
 import { useEffect, useState } from "react";
-import CheckUserLoggedIn from "@/src/functions/CheckUserLoggedIn";
-import toast from "react-hot-toast";
-import CreateProjectPortal from "@/src/components/ui/projects/CreateProjectPortal";
+import { useUser } from "@/src/hooks/useUser";
 
 const DashboardPage = () => {
   const [showProjectPortal, setShowProjectPortal] = useState<boolean>(false);
