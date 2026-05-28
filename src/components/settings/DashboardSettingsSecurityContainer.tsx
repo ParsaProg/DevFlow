@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import SecuritySettingsContainer from "../ui/settings/SecuritySettingsContainer";
+import SecuritySettingsContainer from "../ui/dashboard/settings/SecuritySettingsContainer";
 
 export default function DashboardSettingsSecurityContainer() {
   return (
