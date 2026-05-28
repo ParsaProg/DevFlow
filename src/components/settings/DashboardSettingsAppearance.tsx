@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import ThemeChangeAppearanceContainer from "../ui/settings/ThemeChangeContainer";
+import ThemeChangeAppearanceContainer from "../ui/dashboard/settings/ThemeChangeContainer";
 
 export default function DashboardSettingsAppearance() {
   return (
