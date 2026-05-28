@@ -34,12 +34,14 @@ export default function RootLayout({
       >
         <PortalProvider>
           <SidebarProvider>
-            <ClientLayout>
-              <LenisProvider>
-                <ToastProvider />
-                <AuthProvider>{children}</AuthProvider>
-              </LenisProvider>
-            </ClientLayout>
+            <AuthProvider>
+              <ClientLayout>
+                <LenisProvider>
+                  <ToastProvider />
+                  {children}
+                </LenisProvider>
+              </ClientLayout>
+            </AuthProvider>
           </SidebarProvider>
         </PortalProvider>
       </body>
