@@ -5,6 +5,7 @@ type contributors = {
 };
 
 export type ProjectsType = {
+  id: number;
   title: string;
   subTitle: string;
   progressPercent: number;
@@ -14,6 +15,7 @@ export type ProjectsType = {
 
 export const ProjectsModelData: ProjectsType[] = [
   {
+    id: 1,
     title: "Auth Service",
     subTitle: "Authentication and authorization microservice with SSO support.",
     progressPercent: 72,
@@ -32,6 +34,7 @@ export const ProjectsModelData: ProjectsType[] = [
     ],
   },
   {
+    id: 2,
     title: "Frontend Platform",
     subTitle:
       "Next.js-based frontend with design system and component library.",
@@ -51,6 +54,7 @@ export const ProjectsModelData: ProjectsType[] = [
     ],
   },
   {
+    id: 3,
     title: "Core Engine",
     subTitle: "High-performance data processing pipeline and query engine.",
     progressPercent: 88,
@@ -74,6 +78,7 @@ export const ProjectsModelData: ProjectsType[] = [
     ],
   },
   {
+    id: 4,
     title: "Mobile App",
     subTitle: "Cross-platform mobile application built with React Native.",
     progressPercent: 20,
@@ -92,6 +97,7 @@ export const ProjectsModelData: ProjectsType[] = [
     ],
   },
   {
+    id: 5,
     title: "Analytics Dashboard",
     subTitle: "Real-time analytics and reporting dashboard for team metrics.",
     progressPercent: 60,
@@ -110,6 +116,7 @@ export const ProjectsModelData: ProjectsType[] = [
     ],
   },
   {
+    id: 6,
     title: "API Gateway",
     subTitle: "Centralized API gateway with rate limiting and monitoring.",
     progressPercent: 95,
