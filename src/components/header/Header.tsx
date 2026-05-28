@@ -17,7 +17,6 @@ export default function Header() {
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
   const [isShowMobileMenu, setIsShowMobileMenu] = useState<boolean>(false);
   const [mounted, setMounted] = useState<boolean>(false);
-  const { theme, setTheme } = useTheme();
   const [isBorderShow, setIsBorderShow] = useState<boolean>(false);
   const [showItems, setShowItems] = useState(false);
   const [showHeader, setShowHeader] = useState<boolean>(false);
