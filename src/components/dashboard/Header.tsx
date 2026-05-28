@@ -8,12 +8,15 @@ import ThemeToggleButton from "../ui/ThemeToggleButton";
 import { usePortal } from "@/src/context/DashboardSearchPortalShowedContext";
 import DashboardSearchPortal from "../portals/DashboardSearchPortal";
 import CheckUserLoggedIn from "@/src/functions/CheckUserLoggedIn";
+import DashboardHeaderMenu from "../ui/dashboard/DashboardHeaderMenu";
+import { useUser } from "@/src/hooks/useUser";
 
 export default function DashboardPanelHeader({
   collapse,
 }: {
   collapse: boolean;
 }) {
+  const { user } = useUser();
   const { showPortal, openPortal, closePortal } = usePortal();
   const menuRef = useRef<HTMLDivElement | null>(null);
   const [isShowMenu, setIsShowMenu] = useState<boolean>(false);
@@ -78,43 +81,9 @@ export default function DashboardPanelHeader({
             <div className="cursor-pointer select-none transition-colors hover:bg-primary/20 w-9 h-9 text-sm rounded-full font-semibold flex items-center justify-center text-primary bg-primary/10">
               PS
             </div>
-            <AnimatePresence>
+            <AnimatePresence mode="popLayout">
               {isShowMenu && (
-                <motion.div
-                  ref={menuRef}
-                  key={"menu"}
-                  initial="hidden"
-                  animate="visible"
-                  exit="hidden"
-                  variants={{
-                    hidden: { opacity: 0, top: -20, scale: 0.6 },
-                    visible: { opacity: 1, top: "46px", scale: 1 },
-                  }}
-                  className="w-70 h-auto rounded-xl absolute top-11.5 right-0 dark:bg-[#0C1015] border dark:border-neutral-800 flex flex-col items-start gap-y-3 px-4 pt-5 pb-3 text-[13px] select-none"
-                >
-                  <div>
-                    <h1 className="font-medium">Parsa Shaabani</h1>
-                    <span className="text-gray-500">
-                      parsashaabani3@gmail.com
-                    </span>
-                  </div>
-                  <span className="w-full h-px bg-gray-800 rounded-full"></span>
-                  <div className="flex flex-col w-full">
-                    {["Profile", "Prefrences", "Sign Out"].map((val, index) => {
-                      return (
-                        <motion.div
-                          whileTap={{ scale: 0.98 }}
-                          key={index}
-                          className="w-full"
-                        >
-                          <div className="font-thin rounded-xl transition-all duration-200 hover:bg-gray-900 w-full py-2 px-3">
-                            {val}
-                          </div>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                </motion.div>
+                <DashboardHeaderMenu key="dashboard-header-menu" menuRef={menuRef} user={user} />
               )}
             </AnimatePresence>
           </div>
