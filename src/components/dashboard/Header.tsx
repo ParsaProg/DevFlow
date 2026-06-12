@@ -91,7 +91,7 @@ export default function DashboardPanelHeader({
             </motion.div>
           </Link>
           <div onClick={toggleMenu} className="relative">
-            <div className="cursor-pointer select-none transition-colors hover:bg-primary/20 w-9 h-9 text-sm rounded-full font-semibold flex items-center justify-center text-primary bg-primary/10">
+            <div className="cursor-pointer select-none transition-colors hover:bg-primary/20 w-9 h-9 text-sm rounded-full font-semibold flex items-center j ustify-center text-primary bg-primary/10">
               {user?.["firstName"]?.toString().charAt(0) +
                 user?.["lastName"]?.toString().charAt(0)}
             </div>
