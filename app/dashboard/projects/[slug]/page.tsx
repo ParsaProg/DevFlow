@@ -10,6 +10,7 @@ import { use, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import InviteContributorModal from "@/src/components/ui/modals/InviteContributorModal";
 import toast from "react-hot-toast";
+import { fetchProjectDetails } from "@/src/services/ProjectDetailsServices";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -28,47 +29,13 @@ export default function ProjectDetailsPage({ params }: PageProps) {
     setShowModal(!showModal);
   };
   useEffect(() => {
-    const token = localStorage.getItem("accessToken") || "";
-    const fetchProjectDetails = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const response = await fetch(
-          `${BACKEND_BASE_URL}/api/v1/projects/${slug}`,
-          {
-            credentials: "include",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-
-        if (!response.ok) {
-          if (response.status === 404) {
-            throw new Error("Project not found");
-          }
-          throw new Error("Failed to fetch project data");
-        }
-
-        const data = await response.json();
-        console.log(data);
-        setProject(data);
-        document.title = `${data?.["name"]} Project`;
-      } catch (err: any) {
-        setError(err.message || "Something went wrong");
-        toast.error(err.message);
-        setTimeout(() => {
-          router.replace("/dashboard/projects");
-        }, 3000);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     if (slug) {
-      fetchProjectDetails();
+      fetchProjectDetails({
+        setLoading: setLoading,
+        setError: setError,
+        slug: slug,
+        setProject: setProject,
+      });
     }
   }, [slug]);
   const handleGoBack = (event: React.MouseEvent<HTMLButtonElement>) => {
