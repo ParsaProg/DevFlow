@@ -10,6 +10,8 @@ import DashboardSearchPortal from "../portals/DashboardSearchPortal";
 import CheckUserLoggedIn from "@/src/functions/CheckUserLoggedIn";
 import DashboardHeaderMenu from "../ui/dashboard/DashboardHeaderMenu";
 import { useUser } from "@/src/hooks/useUser";
+import Link from "next/link";
+import { fetchNotifications } from "@/src/services/FetchNotifications";
 
 export default function DashboardPanelHeader({
   collapse,
@@ -22,6 +24,8 @@ export default function DashboardPanelHeader({
   const [isShowMenu, setIsShowMenu] = useState<boolean>(false);
   const pathName = usePathname();
   const [mount, setMount] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [notifications, setNotifications] = useState<any[]>([]);
 
   useEffect(() => {
     const handleClickOutSide = (event: MouseEvent) => {
@@ -37,9 +41,13 @@ export default function DashboardPanelHeader({
     const loggedIn = CheckUserLoggedIn({ fromAuthPage: false });
     loggedIn.then((res) => {
       const pth = pathName.toString().trim();
-      if ((pth === "/dashboard" || pth.includes("/dashboard/")) && res)
+      if ((pth === "/dashboard" || pth.includes("/dashboard/")) && res) {
         setMount(true);
-      else setMount(false);
+        fetchNotifications({
+          setLoading: setLoading,
+          setNotifications: setNotifications,
+        });
+      } else setMount(false);
     });
   }, [pathName]);
 
@@ -52,7 +60,7 @@ export default function DashboardPanelHeader({
   return (
     <>
       <div
-        className={`transition-all duration-300 flex items-center justify-between z-20 fixed top-0 right-0 ${collapse ? " w-[calc(100%-60px)]" : "w-[calc(100%-240px)]"} h-16 border-b border-b-gray-800 px-5`}
+        className={`transition-all duration-300 flex items-center justify-between z-20 fixed top-0 right-0 ${collapse ? " w-[calc(100%-60px)]" : "w-[calc(100%-240px)]"} h-16 border-b border-b-gray-800 px-5 dark:bg-[#05070bc5] bg-[#f6f7f8d3] backdrop-blur-sm`}
       >
         <motion.section
           onClick={openPortal}
@@ -71,19 +79,29 @@ export default function DashboardPanelHeader({
         </motion.section>
         <section className="flex items-center gap-x-3">
           <ThemeToggleButton />
-          <motion.div className="relative p-2 rounded-2xl border border-neutral-300 dark:border-[#1D2229] dark:bg-[#0D1116] bg-[#F0F2F6] text-sm">
-            <Bell size={18} />
-            <div className="absolute -top-1 -right-1 bg-primary text-white text-[10px] font-thin rounded-full w-4 h-4 flex items-center justify-center">
-              3
-            </div>
-          </motion.div>
+          <Link href="/dashboard/notifications">
+            {" "}
+            <motion.div className="relative p-2 rounded-2xl border border-neutral-300 dark:border-[#1D2229] dark:bg-[#0D1116] bg-[#F0F2F6] text-sm">
+              <Bell size={18} />
+              {!loading && notifications.length > 0 && (
+                <div className="absolute -top-2 -right-2 bg-primary text-white text-[12px] text-center font-thin rounded-full w-5 h-5 flex items-center justify-center">
+                  {notifications.length}
+                </div>
+              )}
+            </motion.div>
+          </Link>
           <div onClick={toggleMenu} className="relative">
             <div className="cursor-pointer select-none transition-colors hover:bg-primary/20 w-9 h-9 text-sm rounded-full font-semibold flex items-center justify-center text-primary bg-primary/10">
-              PS
+              {user?.["firstName"]?.toString().charAt(0) +
+                user?.["lastName"]?.toString().charAt(0)}
             </div>
             <AnimatePresence mode="popLayout">
               {isShowMenu && (
-                <DashboardHeaderMenu key="dashboard-header-menu" menuRef={menuRef} user={user} />
+                <DashboardHeaderMenu
+                  key="dashboard-header-menu"
+                  menuRef={menuRef}
+                  user={user}
+                />
               )}
             </AnimatePresence>
           </div>
